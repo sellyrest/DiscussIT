@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,25 +14,26 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('index');
-    });
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::resource('topic', TopicController::class);
+
     
     Route::get('/rspn', function () {
-        return view('response');
+        return view('pagaes.response');
     });
     
     Route::get('/saved', function () {
-        return view('saved');
+        return view('pages.saved');
     });
     
     Route::get('/yt', function () {
-        return view('yourthread');
+        return view('pages.yourthread');
     });
     
     Route::get('/profile', function () {
-        return view('profile');
+        return view('pages.profile');
     });
 });
 
