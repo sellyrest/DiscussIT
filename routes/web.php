@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TopicController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,13 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
+    Route::get('data-topic', [DashboardController::class, 'getDataTopic'])->name('data.topic');
     Route::resource('topic', TopicController::class);
 
     
     Route::get('/rspn', function () {
-        return view('pagaes.response');
+        return view('pages.response');
     });
     
     Route::get('/saved', function () {
@@ -35,12 +39,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
         return view('pages.profile');
     });
+
+
+
 });
 
 
 
 // require __DIR__.'/auth.php';
-
 Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

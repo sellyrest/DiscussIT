@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('pages.content')
+@section('content')
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="row">

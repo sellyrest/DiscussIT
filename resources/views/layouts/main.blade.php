@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ URL::asset('css/sb-admin-2.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/sb-admin-2.min.css') }}" />
 
-
+ @yield('styles')
 </head>
 
 <body id="page-top">
@@ -38,6 +38,8 @@
             <div id="content">
 
                 @include('layouts.navbar')
+
+                @include('layouts.alert')
 
                 @yield('content')
 
@@ -64,7 +66,11 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="login.html">Logout</a>
+                            <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">Logout</a>
+                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -86,7 +92,7 @@
             <!-- Page level custom scripts -->
             <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
             <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
-
+ @yield('scripts')
 </body>
 
 </html>

@@ -67,6 +67,14 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="topic">
+            <i class="fas fa-fw">
+                <img style="height :20px; " src="img/save-icon.png" alt="">
+            </i>
+            <span>My Topic</span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="saved">
             <i class="fas fa-fw">
                 <img style="height :20px; " src="img/save-icon.png" alt="">

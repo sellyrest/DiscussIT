@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Topik;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class TopicController extends Controller
 {
@@ -12,9 +15,14 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $topic = Topik::where('user_id', Auth::user()->id)
+                ->get();
+            return view('pages.includes.topic-list', compact('topic'));
+        }
+        return view('pages.mytopik');
     }
 
     /**
@@ -44,8 +52,35 @@ class TopicController extends Controller
         'title.required'    => 'Judul Harus Di isi !',
         'title.min' => 'Judul Harus Di isi Minimal :min Karakter',
         'title.max' => 'Judul Harus Di isi Minimal :max Karakter',
-        'content.required'  => 'Konten Harus Di isi!'
+        'content.required'  => 'Konten Harus Di isi!',
+        'content.min' => 'Konten Harus Di isi Minimal :min Karakter',
     ]);
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+    $topic = Topik::create([
+        'title' => $request->title,
+        'content' => $request->content,
+        'slug' => Str::slug($request->title),
+        'user_id' => Auth::user()->id,
+        'status' => 1
+        
+    ]);
+
+    if ($request->hasFile('image')){
+        $file = $request->file('image');
+        $ext = $file->getClientOriginalExtension();
+        $newName =  Str::slug($request->title). '_'.md5(uniqid(rand(), true)).$ext;
+        $file->move(public_path('img/'), $newName);
+        $topic->image =$newName;
+        $topic->save();
+    }
+
+    if ($topic){
+        return redirect('/')->with('success', 'Data Berhasil Disimpan!');
+    } else{
+        return redirect()->back()->with('error', 'Data Gagal Disimpan!');
+    }
     }
 
     /**
@@ -67,7 +102,8 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $topic = Topik::find($id);
+        return view('pages.includes.edit-topic', compact('topic'));
     }
 
     /**
