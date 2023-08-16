@@ -69,8 +69,8 @@
     }
   </style>
   <div class="profile-container text-center">
-    <img class="profile-picture" src="img/silvia.png" alt="Profile Picture">
-    <div class="username">Silvia Rahma</div>
+    <img class="profile-picture" src="{{Auth::user()->foto ? asset('img/profile/'.Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}" alt="Profile Picture">
+    <div class="username">{{Auth::user()->name}}</div>
     <div class="bio">FrontEnd enthusiast</div>
     <div class="recent-posts">
       <div class="post">

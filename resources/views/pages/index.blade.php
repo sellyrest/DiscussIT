@@ -8,7 +8,7 @@
             margin-left: 70px; font-size: 13px;
         }
         .role {
-            color: #DDC3DF;
+            color: #B59DD1;
         }
         .content {
             color:#000; font-size: 15px;

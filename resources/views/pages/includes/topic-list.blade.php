@@ -11,15 +11,18 @@
             <p class="time">{{ date('d F Y', strtotime($item->updated_at)) }}</p>
             <h4 class="title">{{ $item->title }}</h4>
             <p class="content">{{ $item->content }}</p>
+            <div class="text-center">
+                <img src="{{ asset('img/'.$item->image) }}" alt="" class="img-fluid">
+            </div>
 
             <button
-                class="p-2 justify-content-center my-3"style="text-decoration: none; background-color: #DDC3DF; color: #fff; border-color:#fff ;border-radius: 10px; font-size: 15px;"
+                class="p-2 justify-content-center my-3"style="text-decoration: none; background-color: #8A7EA4 ; color: #fff; border-color:#fff ;border-radius: 10px; font-size: 15px;"
                 data-toggle="modal" data-target="#commentModal">Add Response</button>
-            <a href="/rspn" style="color: #87AEB7; margin-left: 62%; margin-top: -50px">see all response</a>
+            <a href="/rspn" style="color: #C794B0; margin-left: 72%; margin-top: -50px">see all response</a>
         </div>
         <div class="card-footer">
-            <button onclick="modalEdit({{$item->id}});">Edit</button>
-            <button class="delete">Delete</button>
+            <button onclick="modalEdit({{$item->id}});" class="btn-edit">Edit</button>
+            <button onclick="deleteTopic(event, {{$item->id}}, '{{$item->title}}')" class="btn-delete">Delete</button>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel"

@@ -8,7 +8,7 @@
             margin-left: 70px; font-size: 13px;
         }
         .role {
-            color: #DDC3DF;
+            color: #B59DD1;
         }
         .content {
             color:#000; font-size: 15px;
@@ -25,7 +25,9 @@
         <div class="col-12 text-center" id="load-icon" style="display: none">
             <img src="{{asset('img/load.gif')}}" alt="" width="50px" >
         </div>
-        <div class="col-xl-8 col-lg-5" id="content-topic">
+        <div class="alert alert-success alert-dismissible success-msg fade show col-12" style="display: none" role="alert">
+        </div>
+        <div class="col-12" id="content-topic">
             
             
             
@@ -76,6 +78,54 @@
                     $('#exampleModal').modal('show');
                 }
             });
+        }
+
+        function saveUpdate(id) {
+            var data = new FormData($('#form-edit-topic')[0])
+            $.ajax({
+                type: "POST",
+                url: "{{ url('topic') }}/"+id,
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // console.log(response);
+                    if (response.status == false) {
+                        $(".error-msg").show();
+                        $.each(response.data, function (key, value) { 
+                            $(".error-msg").find("ul").append("<li>" + value + "</li>");      
+                        });
+                        
+                    } else {
+                        $('#exampleModal').modal('hide');
+                        $('form-edit-topic').trigger('reset');
+                        $(".success-msg").html(response.message).show();
+                        getTopic(url)
+                    }
+                    
+                }
+            });
+        }
+
+        function deleteTopic(e, id, title) {
+            var result = confirm('Apakah Anda Yakin Menghapus topik'+title+'?')
+            if (result) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('topic') }}/"+id,
+                    cache: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        $(".success-msg").html(response.message).show();
+                        getTopic(url)
+                    }
+                });
+            } else {
+                alert('Data Aman!')
+            }
+            
         }
     </script>
 @endsection

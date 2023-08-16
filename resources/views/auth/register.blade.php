@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>SForum-Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -20,17 +20,36 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+        .bg-register{
+            background-image: url("../img/bg-login.jpg");
+        }
+
+        .card-register{
+            margin-top: 100px;
+        }
+        .btn-register{
+            background-color: #F9BBAE;
+            border-radius: 20%;
+            color: black;
+        }
+        .bg-reg{
+            background-image: url("../img/welcome_reg.jpg"); 
+        }
+    </style>
+
+
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-register">
 
-    <div class="container">
+    <div class="card-register container">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-5 d-none d-lg-block bg-reg"></div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
@@ -57,7 +76,7 @@
                                     </span>
                                 @enderror
                                 <div class="form-group">
-                                    <input id="Nomor" type="text" class="form-control form-control-user @error('nomor') is-invalid @enderror" name="nomor" value="{{ old('nomor') }}" required autocomplete="nomor" placeholder="Nomor Telepon">
+                                    <input id="Nomor" type="number" class="form-control form-control-user @error('nomor') is-invalid @enderror" name="nomor" value="{{ old('nomor') }}" required autocomplete="nomor" placeholder="Nomor Telepon">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -78,7 +97,7 @@
                                     </span>
                                 @enderror
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-register btn-user btn-block">
                                     Register Account
                                 </button>
         
