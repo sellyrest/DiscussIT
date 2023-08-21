@@ -59,7 +59,7 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="yt">
+        <a class="nav-link" href="{{url('topic/create')}}">
             <i class="fas fa-fw">
                 <img style="height :20px; " src="img/thread-icon.png" alt="">
             </i>
@@ -67,7 +67,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="topic">
+        <a class="nav-link" href="{{url('topic')}}">
             <i class="fas fa-fw">
                 <img style="height :20px; " src="img/save-icon.png" alt="">
             </i>

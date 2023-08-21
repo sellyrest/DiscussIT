@@ -41,7 +41,7 @@
                                 <img style="height :60px; "
                                     src="{{ $item->user->foto ? asset('img/profile/' . $item->user->foto) : asset('img/profile/default_fp.jpg') }}"
                                     alt="">
-                                <h5 class="name">{{ $item->user->fullname }}</h5>
+                                <h5 class="name">{{ $item->user->name }}</h5>
                                 <p class="time">{{ date('d F Y', strtotime($item->updated_at)) }}</p>
                                 <h4 class="title">{{ $item->title }}</h4>
                                 <p class="content">{{ $item->content }}</p>
@@ -53,7 +53,7 @@
                                 <button
                                     class="p-2 justify-content-center my-3"style="text-decoration: none; background-color: #8A7EA4; color: #fff; border-color:#fff ;border-radius: 10px; font-size: 15px;"
                                     data-toggle="modal" data-target="#commentModal">Add Response</button>
-                                    <a href="{{ route('topic.show', Crypt::encrypt($item->id))}}" style="color: #C794B0; margin-left: 62%; margin-top: -50px">see all
+                                <a href="/rspn" style="color: #C794B0; margin-left: 62%; margin-top: -50px">see all
                                     response</a>
                             </div>
 
@@ -90,70 +90,9 @@
                     @endforeach
                     {{ $topic->appends($_GET)->links()}}
                 </div>
-            </div>
-            <div class="col-xl-4 col-lg-7">
-                <div class="card shadow mb-4">
-                    <div class="card-body text-center card-profile">
-                        <h3>Account</h3>
-                        <hr>
-                        </hr>
-                        <div class="text-center pt-4 pb-2">
-                            <img src="{{ Auth::user()->foto ? asset('img/profile/' . Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}"
-                                alt="">
-                            <div class="py-3">
-                                <h5>{{ Auth::user()->name }}</h5>
-                            </div>
-                            <div class="contact">
-                                <h5>contact</h5>
-                            </div>
-                            <label>Email: </label>
-                            <a href="mailto:{{ Auth::user()->email }}">
-                                {{ Auth::user()->email }}
-                            </a><br />
-                            <label>Phone: </label>
-                            <a href="tel:+6288983879406">
-                                088983879406
-                            </a> <br />
-                        </div>
-                    </div>
-                </div>
-                <div class="card shadow mb-4">
-                    <div class="card-body card-profile">
-                        <h3 style="text-center">Attendence</h3>
-                        <div class="text-left pt-1 pb-2">
-                            <hr>
-                            </hr>
-                            <div class="py-3">
-                                <img style="height :60px; " src="img/Marettha.png" alt="">
-                                <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Marettha
-                                    Angelina</h5>
-                            </div>
-                            <div class="py-3">
-                                <img style="height :60px; " src="img/alex.png" alt="">
-                                <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Alexxandra
-                                    Pasha</h5>
-                            </div>
-                            <div class="py-3">
-                                <img style="height :60px; " src="img/leonna.png" alt="">
-                                <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Leonna
-                                    Lea</h5>
-                            </div>
-                            <div class="py-3">
-                                <img style="height :60px; " src="img/chella.png" alt="">
-                                <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Christy
-                                    Alveria</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
             </div>
         </div>
-
-
-
-
-
-
     </div>
     <!-- End of Content Wrapper -->
 @endsection
@@ -174,4 +113,5 @@
         })
     });
 </script>
+    
 @endsection

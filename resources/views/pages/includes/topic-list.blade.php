@@ -7,7 +7,7 @@
             <img style="height :60px; "
                 src="{{ $item->user->foto ? asset('img/profile/' . $item->user->foto) : asset('img/profile/default_fp.jpg') }}"
                 alt="">
-            <h5 class="name">{{ $item->user->name }}</h5>
+            <h5 class="name">{{ $item->user->fullname }}</h5>
             <p class="time">{{ date('d F Y', strtotime($item->updated_at)) }}</p>
             <h4 class="title">{{ $item->title }}</h4>
             <p class="content">{{ $item->content }}</p>
@@ -18,7 +18,7 @@
             <button
                 class="p-2 justify-content-center my-3"style="text-decoration: none; background-color: #8A7EA4 ; color: #fff; border-color:#fff ;border-radius: 10px; font-size: 15px;"
                 data-toggle="modal" data-target="#commentModal">Add Response</button>
-            <a href="/rspn" style="color: #C794B0; margin-left: 72%; margin-top: -50px">see all response</a>
+            <a href="{{ route('topic.show', Crypt::encrypt($item->id))}}" style="color: #C794B0; margin-left: 72%; margin-top: -50px">see all response</a>
         </div>
         <div class="card-footer">
             <button onclick="modalEdit({{$item->id}});" class="btn-edit">Edit</button>
@@ -54,3 +54,4 @@
         </div>
     </div>
 @endforeach
+{{ $topic->appends($_GET)->links()}}

@@ -20,13 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
-    Route::get('data-topic', [DashboardController::class, 'getDataTopic'])->name('data.topic');
     Route::resource('topic', TopicController::class);
-
-    
-    Route::get('/rspn', function () {
-        return view('pages.response');
-    });
+    Route::get('/search', [DashboardController::class, 'searchTopic'])->name('search.topic');
     
     Route::get('/saved', function () {
         return view('pages.saved');

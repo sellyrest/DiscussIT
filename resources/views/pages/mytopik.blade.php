@@ -27,10 +27,7 @@
         </div>
         <div class="alert alert-success alert-dismissible success-msg fade show col-12" style="display: none" role="alert">
         </div>
-        <div class="col-12" id="content-topic">
-            
-            
-            
+        <div class="col-12" id="content-topic">       
         </div>
     </div>
 
@@ -47,6 +44,7 @@
 </div>
 <!-- End of Content Wrapper -->
 @endsection
+
 @section('scripts')
     <script>
         var url = "{{ route('topic.index') }}"
@@ -63,6 +61,11 @@
                 success: function (response) {
                     $('#load-icon').hide();
                     $('#content-topic').html(response);
+                    $('ul.pagination ap').click(function (e) { 
+                        e.preventDefault();
+                        var href = $(this).attr('href');
+                        getTopic(href)
+                    });
                 }
             });
             

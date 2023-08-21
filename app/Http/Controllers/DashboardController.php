@@ -8,14 +8,21 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-
-        $topic = Topik::all();
-        return view('pages.index');
+        $topic = Topik::orderBy('id', 'DESC')->paginate(5);
+        return view('pages.index', compact('topic'));
     }
 
-    public function getDataTopic(Request $request )
+
+    public function searchTopic(Request $request)
     {
-        $topic = Topik::all();
-        return view('pages.includes.topic-home', compact('topic'));
+        $keyword = $request->keyword;
+        $topic = Topik::where('title', 'like', '%'.$keyword.'%')
+            ->orWhereHas('user', function($q) use($keyword) {
+                $q->where('name', 'like', '%'.$keyword.'%');
+            })
+            ->orderBy('id', 'DESC')
+            ->paginate(5);
+
+        return view('pages.search', compact('topic'));
     }
 }

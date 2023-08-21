@@ -19,7 +19,7 @@ class TopicController extends Controller
     {
         if ($request->ajax()) {
             $topic = Topik::where('user_id', Auth::user()->id)
-                ->get();
+                ->paginate(4);
             return view('pages.includes.topic-list', compact('topic'));
         }
         return view('pages.mytopik');
@@ -32,7 +32,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.yourthread');
     }
 
     /**
@@ -44,45 +44,48 @@ class TopicController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $validator = Validator::make($data, [
-            'title' => ['required', 'string', 'min:3', 'max:255'],
-            'content' => ['required', 'min:3' ],
-            'image' => ['image', 'max:2048']
-        ],
-    [
-        'title.required'    => 'Judul Harus Di isi !',
-        'title.min' => 'Judul Harus Di isi Minimal :min Karakter',
-        'title.max' => 'Judul Harus Di isi Minimal :max Karakter',
-        'content.required'  => 'Konten Harus Di isi!',
-        'content.min' => 'Konten Harus Di isi Minimal :min Karakter',
-        'image.max' => 'Gambar Harus Kurang Dari :max kb'
-    ]);
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
-    }
-    $topic = Topik::create([
-        'title' => $request->title,
-        'content' => $request->content,
-        'slug' => Str::slug($request->title),
-        'user_id' => Auth::user()->id,
-        'status' => 1
-        
-    ]);
+        $validator = Validator::make(
+            $data,
+            [
+                'title' => ['required', 'string', 'min:3', 'max:255'],
+                'content' => ['required', 'min:3'],
+                'image' => ['image', 'max:2048']
+            ],
+            [
+                'title.required'    => 'Judul Harus Di isi !',
+                'title.min' => 'Judul Harus Di isi Minimal :min Karakter',
+                'title.max' => 'Judul Harus Di isi Minimal :max Karakter',
+                'content.required'  => 'Konten Harus Di isi!',
+                'content.min' => 'Konten Harus Di isi Minimal :min Karakter',
+                'image.max' => 'Gambar Harus Kurang Dari :max kb'
+            ]
+        );
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $topic = Topik::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'slug' => Str::slug($request->title),
+            'user_id' => Auth::user()->id,
+            'status' => 1
 
-    if ($request->hasFile('image')){
-        $file = $request->file('image');
-        $ext = $file->getClientOriginalExtension();
-        $newName =  Str::slug($request->title). '_'.md5(uniqid(rand(), true)).$ext;
-        $file->move(public_path('img/'), $newName);
-        $topic->image =$newName;
-        $topic->save();
-    }
+        ]);
 
-    if ($topic){
-        return redirect('/')->with('success', 'Data Berhasil Disimpan!');
-    } else{
-        return redirect()->back()->with('error', 'Data Gagal Disimpan!');
-    }
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $newName =  Str::slug($request->title) . '_' . md5(uniqid(rand(), true)) . $ext;
+            $file->move(public_path('img/'), $newName);
+            $topic->image = $newName;
+            $topic->save();
+        }
+
+        if ($topic) {
+            return redirect('/')->with('success', 'Data Berhasil Disimpan!');
+        } else {
+            return redirect()->back()->with('error', 'Data Gagal Disimpan!');
+        }
     }
 
     /**
@@ -93,7 +96,9 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        //
+        $topic_id = decrypt($id);
+        $topic = Topik::find($topic_id);
+        return view('pages.response', compact('topic'));
     }
 
     /**
@@ -119,64 +124,67 @@ class TopicController extends Controller
     {
         // dd($request->all());
         $data = $request->all();
-        $validator = Validator::make($data, [
-            'title' => ['required', 'string', 'min:3', 'max:255'],
-            'content' => ['required', 'min:3'],
-            'image' => ['image', 'max:2048']
-        ],
-    [
-        'title.required'    => 'Judul Harus Di isi !',
-        'title.min' => 'Judul Harus Di isi Minimal :min Karakter',
-        'title.max' => 'Judul Harus Di isi Minimal :max Karakter',
-        'content.required'  => 'Konten Harus Di isi!',
-        'content.min' => 'Konten Harus Di isi Minimal :min Karakter',
-        'image.max' => 'Gambar Harus Kurang Dari :max kb'
-    ]);
-    if ($validator->fails()) {
-        return response()->json([
-            'status' => false,
-            'message' => 'Validasi Gagal',
-            'data' => $validator->errors()
-        ]);
-    }
-
-    $topic = Topik::find($id);
-
-
-    $topic->update([
-        'title' => $request->title,
-        'content' => $request->content,
-        'slug' => Str::slug($request->title),
-        'user_id' => Auth::user()->id,
-        'status' => $request->status,
-        
-    ]);
-
-    if ($request->hasFile('image')){
-        $path = 'img/'.$topic->image;
-        if (is_file($path)){
-            unlink($path);
+        $validator = Validator::make(
+            $data,
+            [
+                'title' => ['required', 'string', 'min:3', 'max:255'],
+                'content' => ['required', 'min:3'],
+                'image' => ['image', 'max:2048']
+            ],
+            [
+                'title.required'    => 'Judul Harus Di isi !',
+                'title.min' => 'Judul Harus Di isi Minimal :min Karakter',
+                'title.max' => 'Judul Harus Di isi Minimal :max Karakter',
+                'content.required'  => 'Konten Harus Di isi!',
+                'content.min' => 'Konten Harus Di isi Minimal :min Karakter',
+                'image.max' => 'Gambar Harus Kurang Dari :max kb'
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validasi Gagal',
+                'data' => $validator->errors()
+            ]);
         }
-        $file = $request->file('image');
-        $ext = $file->getClientOriginalExtension();
-        $newName =  Str::slug($request->title). '_'.md5(uniqid(rand(), true)).$ext;
-        $file->move(public_path('img/'), $newName);
-        $topic->image =$newName;
-        $topic->save();
-    }
 
-    if ($topic){
-        return response()->json([
-            'status' => true,
-            'message' => 'Data Berhasil Disimpan!',
-            'data' => $topic
+        $topic = Topik::find($id);
+
+
+        $topic->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'slug' => Str::slug($request->title),
+            'user_id' => Auth::user()->id,
+            'status' => $request->status,
+
         ]);
-    } else {
-        return response()->json([
-            'status' => true,
-            'message' => 'Data Berhasil Disimpan!',
-        ]);
-    }
+
+        if ($request->hasFile('image')) {
+            $path = 'img/' . $topic->image;
+            if (is_file($path)) {
+                unlink($path);
+            }
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $newName =  Str::slug($request->title) . '_' . md5(uniqid(rand(), true)) . $ext;
+            $file->move(public_path('img/'), $newName);
+            $topic->image = $newName;
+            $topic->save();
+        }
+
+        if ($topic) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Berhasil Disimpan!',
+                'data' => $topic
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Berhasil Disimpan!',
+            ]);
+        }
     }
 
     /**
@@ -188,8 +196,8 @@ class TopicController extends Controller
     public function destroy($id)
     {
         $topic = Topik::find($id);
-        $path = 'img/'.$topic->image;
-        if (is_file($path)){
+        $path = 'img/' . $topic->image;
+        if (is_file($path)) {
             unlink($path);
         }
         $topic->delete();
