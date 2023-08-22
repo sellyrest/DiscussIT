@@ -75,7 +75,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="saved">
+        <a class="nav-link" href="{{url('saved')}}">
             <i class="fas fa-fw">
                 <img style="height :20px; " src="img/save-icon.png" alt="">
             </i>

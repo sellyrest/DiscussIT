@@ -49,4 +49,9 @@ class User extends Authenticatable
     public function topik() {
         return $this->hasMany(Topik::class, 'user_id', 'id');
     }
+
+    public function saveds()
+    {
+        return $this->hasMany(Saved::class, 'user_id', 'id');
+    }
 }

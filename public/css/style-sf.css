@@ -1,0 +1,12 @@
+.btn-saved{
+    text-decoration: none; 
+    color: #8A7EA4; 
+    border-color: #8A7EA4 ;
+    border-radius: 10px; 
+    font-size: 15px;
+}
+
+.btn-saved:hover, .btn-saved:active, .btn-saved:focus, .btn-saved.active{
+    background-color: #8A7EA4;
+    color: #fff;
+}

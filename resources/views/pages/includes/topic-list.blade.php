@@ -14,11 +14,7 @@
             <div class="text-center">
                 <img src="{{ asset('img/'.$item->image) }}" alt="" class="img-fluid">
             </div>
-
-            <button
-                class="p-2 justify-content-center my-3"style="text-decoration: none; background-color: #8A7EA4 ; color: #fff; border-color:#fff ;border-radius: 10px; font-size: 15px;"
-                data-toggle="modal" data-target="#commentModal">Add Response</button>
-            <a href="{{ route('topic.show', Crypt::encrypt($item->id))}}" style="color: #C794B0; margin-left: 72%; margin-top: -50px">see all response</a>
+            <a href="{{ route('topic.show', Crypt::encrypt($item->id))}}" style="color: #C794B0; margin-left: 85%; margin-top: -50px">see all response</a>
         </div>
         <div class="card-footer">
             <button onclick="modalEdit({{$item->id}});" class="btn-edit">Edit</button>

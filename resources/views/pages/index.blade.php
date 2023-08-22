@@ -53,8 +53,8 @@
                                 <button
                                     class="p-2 justify-content-center my-3"style="text-decoration: none; background-color: #8A7EA4; color: #fff; border-color:#fff ;border-radius: 10px; font-size: 15px;"
                                     data-toggle="modal" data-target="#commentModal">Add Response</button>
-                                    <a href="{{ route('topic.show', Crypt::encrypt($item->id))}}" style="color: #C794B0; margin-left: 62%; margin-top: -50px">see all
-                                    response</a>
+                                <button class="p-2 justify-content-center my-3 btn-saved @if( user_saved(Auth::user()->id, $item->id)) active @endif"  data-user="{{Auth::user()->id}}" data-topic="{{$item->id}}" >Saved</button>
+                                <a href="{{ route('topic.show', Crypt::encrypt($item->id))}}" style="color: #C794B0; margin-left: 55%; margin-top: -50px">see all response</a>
                             </div>
 
                             <!-- Modal -->
@@ -159,6 +159,11 @@
 @endsection
 @section('scripts')
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    })
     $(function () {
         $('ul.pagination').hide();
         $('.infinity-scroll').jscroll({
@@ -172,6 +177,32 @@
             }
 
         })
+       
     });
+    $('.btn-saved').click(function(e) {
+        e.preventDefault();
+            var button = $(this)
+            var user_id = $(this).data('user');
+            var topic_id = $(this).data('topic');
+            $.ajax({
+                type: "POST",
+                url: "{{ route('saved.store') }}",
+                data: {
+                    user_id: user_id,
+                    topic_id: topic_id,
+                },
+                cache: false,
+                success: function (response) {
+                    console.log(response);
+                    if (response.status == 0) {
+                        button.removeClass('active');
+                    } else {
+                        button.addClass('active');
+
+                    }
+                }
+            });
+    })
+        
 </script>
 @endsection

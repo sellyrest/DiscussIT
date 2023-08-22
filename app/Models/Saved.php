@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Topik extends Model
+class Saved extends Model
 {
     use HasFactory;
-    protected $table = 'topiks';
+    protected $table = 'saveds';
     protected $guarded = [];
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    public function saveds()
-    {
-        return $this->hasMany(Saved::class, 'topic_id', 'id');
+    public function topic() {
+        return $this->belongsTo(Topik::class, 'topic_id', 'id');
     }
 }
