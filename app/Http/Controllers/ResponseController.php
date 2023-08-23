@@ -2,26 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Saved;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
-class SavedController extends Controller
+class ResponseController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->ajax()) {
-            $saved = Saved::where('user_id', Auth::user()->id)
-                ->orderBy('id', 'DESC')
-                ->paginate(5);
-            return view('pages.includes.saved-list', compact('saved'));
-        }
-        return view('pages.saved');
+        //
     }
 
     /**
@@ -42,23 +35,18 @@ class SavedController extends Controller
      */
     public function store(Request $request)
     {
-        $saved = Saved::where('user_id', $request->user_id)
-            ->where('topic_id', $request->topic_id)
-            ->first();
-        if ($saved) {
-            $saved->delete();
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'commentContent' => ['required', 'min:3']
+        ],
+        [
+            'commentContent.required' => 'Content Harus Diisi',
+            'commentContent.min'      => 'Content Harus :min Karakter!'
+        ]);
+        if ($validator->fails()){
             return response()->json([
-                'status' => 0,
-                'message' => 'You Unliked This Topic',
-            ]);
-        } else {
-            $saved = Saved::create([
-                'user_id' => $request->user_id,
-                'topic_id' => $request->topic_id,
-            ]);
-            return response()->json([
-                'status' => 1,
-                'message' => 'You liked This Topic',
+                'status'    => 0,
+                'data'      => $validator->errors()
             ]);
         }
     }

@@ -30,12 +30,7 @@
                                         <img style="height :60px; " src="img/Marettha.png" alt="">
                                         <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Marettha Angelina</h5>
                                         <div class="py-4">
-                                            <h6 style="color:#000">You can get free icons from freepik or flaticon</h6>
-                                            <div class="py-4">
-                                                <button class="like-button">Like</button>
-                                                <button class="save-button">Save</button>
-                                                <button class="reply-button">Reply</button>
-                                            </div>
+                                            <h5 style="color:#000">You can get free icons from freepik or flaticon</h5>
                                         </div>
                                 </div>
 

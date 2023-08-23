@@ -47,8 +47,8 @@
     </li>
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="/">
+    <li class="nav-item @if (Request::segment(1) == '') active @endif">
+        <a class="nav-link " href="{{url('/')}}">
             <i class="fas fa-fw">
                 <i class="fas fa-fw">
                     <img style="height :20px; " src="img/home-icon.png" alt="">
@@ -58,7 +58,7 @@
     </li>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item">
+    <li class="nav-item @if (Request::segment(2) == 'create') active @endif">
         <a class="nav-link" href="{{url('topic/create')}}">
             <i class="fas fa-fw">
                 <img style="height :20px; " src="img/thread-icon.png" alt="">
@@ -66,7 +66,7 @@
             <span>Your Thread</span></a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item @if (Request::segment(1) == 'topic') active @endif">
         <a class="nav-link" href="{{url('topic')}}">
             <i class="fas fa-fw">
                 <img style="height :20px; " src="img/save-icon.png" alt="">
@@ -74,7 +74,7 @@
             <span>My Topic</span></a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item @if (Request::segment(1) == 'saved') active @endif">
         <a class="nav-link" href="{{url('saved')}}">
             <i class="fas fa-fw">
                 <img style="height :20px; " src="img/save-icon.png" alt="">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\SavedController;
 use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('topic', TopicController::class);
     Route::get('/search', [DashboardController::class, 'searchTopic'])->name('search.topic');
     Route::resource('/saved', SavedController::class);
-    
+    Route::resource('/response', ResponseController::class);
     
     Route::get('/yt', function () {
         return view('pages.yourthread');

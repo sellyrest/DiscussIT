@@ -2450,11 +2450,11 @@ fieldset:disabled a.btn {
   pointer-events: none;
 }
 
-.btn-primary {
+/* .btn-primary {
   color: #fff;
   background-color: #F3ACB4 !important;
   border-color: #fff !important;
-}
+} */
 
 .btn-primary:hover {
   color: #000;
@@ -4196,14 +4196,14 @@ input[type="button"].btn-block {
   display: block;
 }
 
-.navbar {
+/* .navbar {
   position: fixed;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
-}
+} */
 
 .navbar .container,
 .navbar .container-fluid, .navbar .container-sm, .navbar .container-md, .navbar .container-lg, .navbar .container-xl {
@@ -10415,12 +10415,12 @@ a:focus {
   color: #858796;
 }
 
-.sidebar {
+/* .sidebar {
   width: 6.5rem;
   min-height: 100vh;
   background-color: #F3ACB4;
   color: #000;
-}
+} */
 
 .sidebar .nav-item {
   position: relative;
@@ -11381,23 +11381,6 @@ body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
 
-.bg-login-image {
-  background-image: url("../img/welcome_reg.jpg");
-  background-position: center;
-  background-size: cover;
-}
-
-.bg-register-image {
-  background-image: url("../img/welcome_reg.jpg");
-  background-position: center;
-  background-size: cover;
-}
-
-.bg-password-image {
-  background-image: url("../img/welcome_reg.jpg");
-  background-position: center;
-  background-size: cover;
-}
 
 .btn-edit{
   background-color: #9CCEC3;

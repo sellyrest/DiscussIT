@@ -1,4 +1,4 @@
-.btn-saved{
+.btn-saved, .btn-rspn{
     text-decoration: none; 
     color: #8A7EA4; 
     border-color: #8A7EA4 ;
@@ -10,3 +10,98 @@
     background-color: #8A7EA4;
     color: #fff;
 }
+
+.btn-allrespon{
+    color: #8A7EA4;
+    border-radius: 20px; 
+    font-size: 15px;
+    margin-left: 55%; 
+    margin-top: -50px"
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #F3ACB4 !important;
+    border-color: #fff !important;
+}
+
+.sidebar {
+    width: 6.5rem;
+    min-height: 100vh;
+    background-color: #F3ACB4;
+    color: #000;
+}
+
+.name {
+    margin-left: 70px;
+    color: #000;
+    margin-top: -50px;
+    font-size: 17px;
+}
+
+.time {
+    margin-left: 70px;
+    font-size: 13px;
+}
+
+.role {
+    color: #B59DD1;
+}
+
+.content {
+    color: #000;
+    font-size: 15px;
+}
+
+.sidebar .sidebar-brand {
+    height: 4.375rem;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .05rem;
+    z-index: 1;
+}
+a {
+    color: #000;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color:azure;
+}
+
+.nav-fixed .topnav, #accordionSidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.topnav {
+    padding-left: 0;
+    height: 3.625rem;
+    z-index: 1039;
+    font-size: 0.9rem;
+}
+
+#accordionSidebar, #content .container-fluid {
+    padding-top: 3.625rem;
+}
+
+#content .container-fluid {
+    padding-left: 15rem;
+    padding-top: 4rem;
+}
+
+/* style="text-decoration: none; background-color: #8A7EA4; color: #fff; border-color:#fff ;border-radius: 10px; font-size: 15px;" */

@@ -1,28 +1,4 @@
 @extends('layouts.main')
-@section('styles')
-    <style>
-        .name {
-            margin-left: 70px;
-            color: #000;
-            margin-top: -50px;
-            font-size: 17px;
-        }
-
-        .time {
-            margin-left: 70px;
-            font-size: 13px;
-        }
-
-        .role {
-            color: #B59DD1;
-        }
-
-        .content {
-            color: #000;
-            font-size: 15px;
-        }
-    </style>
-@endsection
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -33,7 +9,7 @@
             <div class="col-xl-8 col-lg-5" id="content-topic">
                 <div class="infinity-scroll">
                     @foreach ($topic as $item)
-                        <div class="card shadow mb-4">
+                        <div class="card shadow mb-4 content-card">
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold role">UI/UX Designer</h6>
                             </div>
@@ -51,17 +27,33 @@
 
 
                                 <button
-                                    class="p-2 justify-content-center my-3"style="text-decoration: none; background-color: #8A7EA4; color: #fff; border-color:#fff ;border-radius: 10px; font-size: 15px;"
-                                    data-toggle="modal" data-target="#commentModal">Add Response</button>
-                                <button class="p-2 justify-content-center my-3 btn-saved @if( user_saved(Auth::user()->id, $item->id)) active @endif"  data-user="{{Auth::user()->id}}" data-topic="{{$item->id}}" >Saved</button>
-                                <a href="{{ route('topic.show', Crypt::encrypt($item->id))}}" style="color: #C794B0; margin-left: 55%; margin-top: -50px">see all response</a>
+                                    class="p-2 justify-content-center my-3 btn-rspn" data-topic="{{$item->id}}">
+                                    Add Response
+                                </button>
+
+                                <button
+                                    class="p-2 justify-content-center my-3 btn-saved @if (user_saved(Auth::user()->id, $item->id)) active @endif"
+                                    data-user="{{ Auth::user()->id }}" data-topic="{{ $item->id }}">
+                                    @if (!user_saved(Auth::user()->id, $item->id))
+                                        Save
+                                    @else
+                                        Saved
+                                    @endif
+                                </button>
+                                <a href="{{ route('topic.show', Crypt::encrypt($item->id)) }}" class="btn-allrespon">see all
+                                    response</a>
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="commentModal" tabindex="-1" role="dialog"
-                                aria-labelledby="commentModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
+                        </div>
+                        @endforeach
+                        {{ $topic->appends($_GET)->links() }}
+                        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog"
+                            aria-labelledby="commentModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form id="addResponse" method="post">
+                                        @csrf
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="commentModalLabel">Respons</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -70,25 +62,33 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label for="commentTitle">Judul</label>
-                                                <input type="text" class="form-control" id="commentTitle" name="commentTitle"
-                                                    required>
-                                            </div>
+                                                {{-- <label for="commentTitle">Judul</label>
+                                                <input type="text" class="form-control" id="commentTitle"
+                                                    name="commentTitle" required> --}}
+
+                                                    <input type="hidden" class="form-control" id="topic_id"
+                                                        name="topic_id">
+                                                    <input type="hidden" class="form-control" id="user_id"
+                                                        name="user_id" value="{{ Auth::user()->id }}">
+                                                        
+
+                                                </div>
                                             <div class="form-group">
                                                 Respons</label>
                                                 <textarea class="form-control" id="commentContent" name="commentContent" rows="5" required></textarea>
+                                                <span id="error-content"></span>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                            <button type="button" class="btn btn-primary">Kirim</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-primary">Kirim</button>
                                         </div>
-                                    </div>
+
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                    {{ $topic->appends($_GET)->links()}}
                 </div>
             </div>
             <div class="col-xl-4 col-lg-7">
@@ -119,10 +119,9 @@
                 </div>
                 <div class="card shadow mb-4">
                     <div class="card-body card-profile">
-                        <h3 style="text-center">Attendence</h3>
+                        <h3 style="text-center">On Trending</h3>
                         <div class="text-left pt-1 pb-2">
                             <hr>
-                            </hr>
                             <div class="py-3">
                                 <img style="height :60px; " src="img/Marettha.png" alt="">
                                 <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Marettha
@@ -158,29 +157,29 @@
     <!-- End of Content Wrapper -->
 @endsection
 @section('scripts')
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    })
-    $(function () {
-        $('ul.pagination').hide();
-        $('.infinity-scroll').jscroll({
-            autoTrigger: true,
-            loadingHtml: '<img src="/img/load.gif" alt="" width="50px">',
-            padding: 0,
-            nextSelector: '.pagination li.active + li a',
-            contentSelector: 'div.infinity-scroll',
-            callback: function() {
-                $('ul.pagination').remove();
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-
         })
-       
-    });
-    $('.btn-saved').click(function(e) {
-        e.preventDefault();
+        $(function() {
+            $('ul.pagination').hide();
+            $('.infinity-scroll').jscroll({
+                autoTrigger: true,
+                loadingHtml: '<img src="/img/load.gif" alt="" width="50px">',
+                padding: 0,
+                nextSelector: '.pagination li.active + li a',
+                contentSelector: 'div.infinity-scroll',
+                callback: function() {
+                    $('ul.pagination').remove();
+                }
+
+            })
+
+        });
+        $('body').on('click', '.btn-saved', function(e) {
+            e.preventDefault();
             var button = $(this)
             var user_id = $(this).data('user');
             var topic_id = $(this).data('topic');
@@ -192,17 +191,44 @@
                     topic_id: topic_id,
                 },
                 cache: false,
-                success: function (response) {
+                success: function(response) {
                     console.log(response);
                     if (response.status == 0) {
                         button.removeClass('active');
+                        button.html('Save');
                     } else {
                         button.addClass('active');
+                        button.html('Saved');
+
 
                     }
                 }
             });
-    })
-        
-</script>
+        })
+
+        $('.btn-rspn').click(function (e) { 
+            e.preventDefault();
+            var topic_id = $(this).data('topik');
+            $('#topic_id').val(topic_id);          
+            $('#commentModal').modal('show');
+        });
+
+
+        $('#addResponse').submit(function (e) { 
+            e.preventDefault() // 
+            var data = new FormData($(this)[0])
+            $.ajax({
+                type: "POST",
+                url: "{{ route('response.store')}}",
+                data: "data",
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (response) {
+                    
+                }
+            });
+        });
+
+    </script>
 @endsection
