@@ -26,6 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [DashboardController::class, 'searchTopic'])->name('search.topic');
     Route::resource('/saved', SavedController::class);
     Route::resource('/response', ResponseController::class);
+    Route::get('/test', function(){
+        return view('pages.includes.response-list');
+    });
     
     Route::get('/yt', function () {
         return view('pages.yourthread');

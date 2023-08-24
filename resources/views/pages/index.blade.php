@@ -40,8 +40,7 @@
                                         Saved
                                     @endif
                                 </button>
-                                <a href="{{ route('topic.show', Crypt::encrypt($item->id)) }}" class="btn-allrespon">see all
-                                    response</a>
+                                <a href="{{ route('topic.show', Crypt::encrypt($item->id)) }}" class="btn-allrespon">see all response</a>
                             </div>
 
                             <!-- Modal -->
@@ -65,18 +64,16 @@
                                                 {{-- <label for="commentTitle">Judul</label>
                                                 <input type="text" class="form-control" id="commentTitle"
                                                     name="commentTitle" required> --}}
-
                                                     <input type="hidden" class="form-control" id="topic_id"
                                                         name="topic_id">
                                                     <input type="hidden" class="form-control" id="user_id"
                                                         name="user_id" value="{{ Auth::user()->id }}">
-                                                        
-
+                                                    <input type="hidden" name="parent_id" id="parent_id" value="0">                                   
                                                 </div>
                                             <div class="form-group">
                                                 Respons</label>
                                                 <textarea class="form-control" id="commentContent" name="commentContent" rows="5" required></textarea>
-                                                <span id="error-content"></span>
+                                                <span id="error-content" class="badge badge-danger"></span>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -84,7 +81,6 @@
                                                 data-dismiss="modal">Tutup</button>
                                             <button type="submit" class="btn btn-primary">Kirim</button>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
@@ -96,7 +92,6 @@
                     <div class="card-body text-center card-profile">
                         <h3>Account</h3>
                         <hr>
-                        </hr>
                         <div class="text-center pt-4 pb-2">
                             <img src="{{ Auth::user()->foto ? asset('img/profile/' . Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}"
                                 alt="">
@@ -208,7 +203,7 @@
 
         $('.btn-rspn').click(function (e) { 
             e.preventDefault();
-            var topic_id = $(this).data('topik');
+            var topic_id = $(this).data('topic');
             $('#topic_id').val(topic_id);          
             $('#commentModal').modal('show');
         });
@@ -220,12 +215,27 @@
             $.ajax({
                 type: "POST",
                 url: "{{ route('response.store')}}",
-                data: "data",
+                data: data,
                 contentType: false,
                 processData: false,
                 cache: false,
                 success: function (response) {
-                    
+                    if (response.status == 0) {
+                        $.each(response.data, function (i, v) { 
+                             $('#error-content').append(v);
+                        });
+                        
+                    } else {
+                        $('#addResponse').trigger('reset');
+                        $('#commentModal').modal('hide');
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1300
+                        })
+                    }
                 }
             });
         });

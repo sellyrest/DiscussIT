@@ -18,4 +18,7 @@ class Topik extends Model
     {
         return $this->hasMany(Saved::class, 'topic_id', 'id');
     }
+    public function responses() {
+        return $this->belongsTo(Response::class, 'topic_id', 'id');
+    }
 }

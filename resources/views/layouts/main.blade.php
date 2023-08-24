@@ -95,6 +95,7 @@
             <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
             <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
             <script src="{{ asset('js/jscroll.min.js') }}"></script>
+            <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
  @yield('scripts')
 </body>
 

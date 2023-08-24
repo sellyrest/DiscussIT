@@ -83,47 +83,11 @@ main {
   padding: 20px;
 }
 
-.thread-form {
-  max-width: 600px;
-  margin: 0 auto;
-}
 
-.thread-form h2 {
-  margin-bottom: 10px;
-}
 
-.thread-form label {
-  display: block;
-  margin-bottom: 5px;
-}
 
-.thread-form input,
-.thread-form textarea {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
 
-.thread-form button {
-  background-color: #87AEB7;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 10%;
-  border: none;
-  cursor: pointer;
-}
-
-.thread-form button:hover {
-  background-color: #D8ADDB;
-}
-
-.forum-post {
-  border: none;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.like-button, .save-button {
+/* .like-button, .save-button {
   background-color: #87AEB7;
   color: #fff;
   border: none;
@@ -140,7 +104,7 @@ main {
   padding: 5px 10px;
   border-radius: 20%;
   cursor: pointer;
-}
+} */
 
 .save-button {
   background-color: #28a745;
@@ -11382,16 +11346,4 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 
-.btn-edit{
-  background-color: #9CCEC3;
-  color: #f8f9fc;
-  border: none;
-  border-radius: 17%;
-}
 
-.btn-delete{
-  background-color: #FBC495;
-  color: #f8f9fc;
-  border: none;
-  border-radius: 17%;
-}
