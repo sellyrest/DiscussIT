@@ -3,7 +3,7 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-8">
+            <div class="col-12">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold role">UI/UX Designer</h6>
@@ -20,10 +20,7 @@
                             <img src="{{ asset('img/' . $topic->image) }}" alt="" class="img-fluid">
                         </div>
                         <button class="p-2 justify-content-center my-3 btn-rspn" data-topic="{{$topic->id}}">Add Response</button>
-                        <a href="{{ route('topic.show', Crypt::encrypt($topic->id)) }}"
-                            style="color: #C794B0; margin-left: 72%; margin-top: -50px">see all response</a>
                     </div>
-                    <hr>
                     <div class="col-12 text-center" id="load-icon" style="display: none">
                         <img src="{{asset('img/load.gif')}}" alt="" width="50px" >
                     </div>
@@ -142,6 +139,39 @@
                 }
             });
         });
+
+        $('#addReply').submit(function (e) { 
+            e.preventDefault() // 
+            var data = new FormData($(this)[0])
+            $.ajax({
+                type: "POST",
+                url: "{{ route('response.store')}}",
+                data: data,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (response) {
+                    if (response.status == 0) {
+                        $.each(response.data, function (i, v) { 
+                             $('#error-content').append(v);
+                        });
+                        
+                    } else {
+                        $('#addReply').trigger('reset');
+                        $('#commentModal').modal('hide');
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1300
+                        })
+                        getReply(url_response)
+                    }
+                }
+            });
+        });
+
 
 </script>
     

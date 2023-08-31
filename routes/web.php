@@ -29,6 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/test', function(){
         return view('pages.includes.response-list');
     });
+    Route::get('/test2', function(){
+        return view('pages.admin.dashboard-admin');
+    });
     
     Route::get('/yt', function () {
         return view('pages.yourthread');

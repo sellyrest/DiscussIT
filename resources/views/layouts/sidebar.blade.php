@@ -82,6 +82,33 @@
             <span>Saved</span></a>
     </li>
 
+    <li class="nav-item @if (Request::segment(1) == 'saved') active @endif">
+        <a class="nav-link" href="{{url('saved')}}">
+            <i class="fas fa-fw">
+                <img style="height :20px; " src="img/save-icon.png" alt="">
+            </i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesadmin"
+            aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw">
+                <img style="height :20px; " src="img/settings-icon.png" alt="">
+            </i>
+            <span>User</span>
+        </a>
+        <div id="collapsePagesadmin" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="user">user</a>
+                <a class="collapse-item" href="Topic">Topic</a>
+                <a class="collapse-item" href="Response">Response</a>
+            </div>
+        </div>
+    </li>
+
+  
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
