@@ -28,10 +28,10 @@
                         </div>
 
                         {{ $item->content }}
-                        @foreach ( $item->children() as $children)
+                        @foreach ( $item->children as $children)
                         <div class="media my-4">
                             <img class="rounded-circle" alt=""
-                                    src="{{ $item->user->foto ? asset('img/profile/' . $item->user->foto) : asset('img/profile/default_fp.jpg') }}"
+                                    src="{{ $children->user->foto ? asset('img/profile/' . $children->user->foto) : asset('img/profile/default_fp.jpg') }}"
                                     alt="" />
                                     <div class="media-body">
                                         <div class="row">
@@ -42,17 +42,18 @@
                                             </div>
                                             <div class="col-4">
                                                 <div class="float-right reply">
-                                                    <a href="#"><span><i class="fa fa-reply"></i>reply</span></a>
+                                                    <a data-toggle="collapse" href="#collapseExample{{$item->id}}" role="button" aria-expanded="false" aria-controls="collapseExample"><span><i class="fa fa-reply"></i> reply</span></a>
                                                 </div>
                                             </div>
                                         </div>
+                                        {{ $children->content }}
                                     </div>
-                                    {{ $children->content }}
+                        </div>
                         @endforeach
                         <div class="collapse" id="collapseExample{{$item->id}}">
                             <div class="card">
                                 <div class="modal-content">
-                                    <form id="addReply" method="post">
+                                    <form id="addReply{{$item->id}}" method="post">
                                         @csrf
                                         {{-- <div class="modal-header">
                                             
@@ -67,10 +68,10 @@
                                                 <input type="text" class="form-control" id="commentTitle"
                                                     name="commentTitle" required> --}}
                                                     <input type="hidden" class="form-control" id="topic_id"
-                                                        name="topic_id">
+                                                        name="topic_id" value="{{ $item->topic_id }}">
                                                     <input type="hidden" class="form-control" id="user_id"
                                                         name="user_id" value="{{ Auth::user()->id }}">
-                                                    <input type="hidden" name="parent_id" id="parent_id" value="0">                                   
+                                                    <input type="hidden" name="parent_id" id="parent_id" value="{{$item->id}}">                                   
                                                 </div>
                                             <div class="form-group">
                                                 <h5 class="modal-title" id="commentModalLabel">Respons</h5>
@@ -79,7 +80,7 @@
                                             </div>
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-primary">Kirim</button>
+                                            <button type="button" onclick="addReply(event, {{ $item->id }})" class="btn btn-primary">Kirim</button>
                                         </div>
                                     </form>
                                 </div>

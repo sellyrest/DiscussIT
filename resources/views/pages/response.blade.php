@@ -108,6 +108,36 @@
         });
 
 
+       function addReply(e, id){
+            e.preventDefault() // 
+            var data = new FormData($("#addReply"+ id)[0])
+            $.ajax({
+                type: "POST",
+                url: "{{ route('response.store')}}",
+                data: data,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (response) {
+                    if (response.status == 0) {
+                        $.each(response.data, function (i, v) { 
+                             $('#error-content').append(v);
+                        });
+                        
+                    } else {
+                        $('#addReply'+ id).trigger('reset');
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1300
+                        })
+                        getResponse(url_response)
+                    }
+                }
+            });
+        };
         $('#addResponse').submit(function (e) { 
             e.preventDefault() // 
             var data = new FormData($(this)[0])
@@ -140,37 +170,6 @@
             });
         });
 
-        $('#addReply').submit(function (e) { 
-            e.preventDefault() // 
-            var data = new FormData($(this)[0])
-            $.ajax({
-                type: "POST",
-                url: "{{ route('response.store')}}",
-                data: data,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function (response) {
-                    if (response.status == 0) {
-                        $.each(response.data, function (i, v) { 
-                             $('#error-content').append(v);
-                        });
-                        
-                    } else {
-                        $('#addReply').trigger('reset');
-                        $('#commentModal').modal('hide');
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: response.message,
-                            showConfirmButton: false,
-                            timer: 1300
-                        })
-                        getReply(url_response)
-                    }
-                }
-            });
-        });
 
 
 </script>

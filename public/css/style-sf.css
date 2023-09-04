@@ -235,3 +235,23 @@ a:hover {
       color: #F3ACB4;
       text-decoration: none;
   }
+
+  .image-topuser{
+    height :70px; 
+  }
+  .topic-count{
+    margin-left: 90%;
+    margin-top: -40px;
+  }
+  .topuser {
+    margin-left: 70px;
+    color:#7E6F6F;
+    margin-top: -50px;
+    font-size: 20px;
+  }
+
+  .label-topuser-thread {
+    margin-left: 85%;
+    margin-top: -10px;
+    font-size: 15px;
+  }

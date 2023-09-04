@@ -21,11 +21,11 @@ class Response extends Model
     
     public function parent()
     {
-        return $this->hasMany(Response::class, 'parent_id', 'id');
+        return $this->belongsTo(Response::class, 'parent_id', 'id');
     }
 
     public function children()
     {
-        return $this->belongsTo(Response::class, 'parent_id', 'id');
+        return $this->hasMany(Response::class, 'parent_id');
     }
 }

@@ -1,27 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Response;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class ResponseController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $response = Response::where('topic_id', $request->topic_id)
-            ->where('parent_id', 0)
-            ->orderBy('id', 'DESC')
-            ->with('children')
-            ->paginate(5);
-            
-        return view('pages.includes.response-list', compact('response'));
+        $totaluser = User::withCount('user')
+        ->having('user_count', '!=', 0)
+        ->orderByDESC('user_count')
+        ->get();
     }
 
     /**
@@ -42,30 +39,7 @@ class ResponseController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'commentContent' => ['required', 'min:3']
-        ],
-        [
-            'commentContent.required' => 'Content Harus Diisi',
-            'commentContent.min'      => 'Content Harus :min Karakter!'
-        ]);
-        if ($validator->fails()){
-            return response()->json([
-                'status'    => 0,
-                'data'      => $validator->errors()
-            ]);
-        }
-        $response = Response::create([
-            'user_id'   => $request->user_id,
-            'topic_id'   => $request->topic_id,
-            'content'   => $request->commentContent,
-            'parent_id' => $request->parent_id
-        ]);
-        return response()->json([
-            'status'    => 1,
-            'message'   => 'Response has been sent!',
-        ]);
+        //
     }
 
     /**

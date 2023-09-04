@@ -53,7 +53,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="me-3">
                                             <div class="text-white-75 small">Total User</div>
-                                            <div class="text-lg fw-bold">458</div>
+                                            <div class="text-lg fw-bold">{{ $user->user_count }}</div>
                                         </div>
                                         {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -230,7 +230,7 @@
                 <div class="col-12 mb-4">
                     <div class="card card-header-actions h-100">
                         <div class="card-header">
-                            On Trending
+                            Top User
                             <div class="dropdown no-caret">
                                 <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton"
                                     type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg

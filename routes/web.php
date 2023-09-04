@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\SavedController;
 use App\Http\Controllers\TopicController;
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [DashboardController::class, 'searchTopic'])->name('search.topic');
     Route::resource('/saved', SavedController::class);
     Route::resource('/response', ResponseController::class);
+    Route::prefix('/admin')->name('admin.')->middleware(AdminMiddleware::class)->group(function() {
+    });
     Route::get('/test', function(){
         return view('pages.includes.response-list');
     });
@@ -40,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
         return view('pages.profile');
     });
+
 
 
 });

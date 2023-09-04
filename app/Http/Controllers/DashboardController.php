@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Saved;
 use App\Models\Topik;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index(){
+        $topuser = User::withCount('topik')
+            ->having('topik_count', '!=', 0)
+            ->orderByDESC('topik_count')
+            ->take(5)
+            ->get();
         $topic = Topik::orderBy('id', 'DESC')->paginate(5);
         $saved = new Saved();
-        return view('pages.index', compact('topic', 'saved'));
+        return view('pages.index', compact('topic', 'saved', 'topuser'));
     }
 
 

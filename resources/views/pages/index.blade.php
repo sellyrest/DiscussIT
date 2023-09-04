@@ -114,29 +114,21 @@
                 </div>
                 <div class="card shadow mb-4">
                     <div class="card-body card-profile">
-                        <h3 style="text-center">On Trending</h3>
+                        <h3 style="text-center">Top User</h3>
                         <div class="text-left pt-1 pb-2">
                             <hr>
+                            @foreach ($topuser as $user)
+                                
                             <div class="py-3">
-                                <img style="height :60px; " src="img/Marettha.png" alt="">
-                                <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Marettha
-                                    Angelina</h5>
+                                <img class="image-topuser" src="{{ $user->foto ? asset('img/profile/' . $user->foto) : asset('img/profile/default_fp.jpg') }}"
+                                alt="">
+                                <h5 class="topuser">{{ $user->fullname }}</h5>
+                                <h5 class="topic-count">{{ $user->topik_count }}</h5>
+                                <h6 class="label-topuser-thread">thread</h6>
+                                
+
                             </div>
-                            <div class="py-3">
-                                <img style="height :60px; " src="img/alex.png" alt="">
-                                <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Alexxandra
-                                    Pasha</h5>
-                            </div>
-                            <div class="py-3">
-                                <img style="height :60px; " src="img/leonna.png" alt="">
-                                <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Leonna
-                                    Lea</h5>
-                            </div>
-                            <div class="py-3">
-                                <img style="height :60px; " src="img/chella.png" alt="">
-                                <h5 style="margin-left: 70px; color:#7E6F6F; margin-top: -40px; font-size: 17px;">Christy
-                                    Alveria</h5>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
