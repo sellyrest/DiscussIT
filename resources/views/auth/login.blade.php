@@ -23,11 +23,12 @@
 
     <style>
         .bg-login{
-            background-image: url("../img/bg-login.jpg");
+            background-image: url("../img/bg-web.jpg");
+            background-size: 100%
         }
         .btn-login{
-            background-color: #F9BBAE;
-            color: black;
+            background-color: #313866;
+            color: white;
             border-radius: 20%
         }
         .card-login{

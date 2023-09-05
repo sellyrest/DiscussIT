@@ -1,18 +1,18 @@
 .btn-saved, .btn-rspn{
     text-decoration: none; 
-    color: #8A7EA4; 
-    border-color: #8A7EA4 ;
+    color: #EC53B0; 
+    border-color: #EC53B0 ;
     border-radius: 10px; 
     font-size: 15px;
 }
 
 .btn-saved:hover, .btn-saved:active, .btn-saved:focus, .btn-saved.active{
-    background-color: #8A7EA4;
+    background-color: #EC53B0;
     color: #fff;
 }
 
 .btn-allrespon{
-    color: #8A7EA4;
+    color: #EC53B0;
     border-radius: 20px; 
     font-size: 15px;
     margin-left: 55%; 
@@ -21,20 +21,20 @@
 
 .btn-primary {
     color: #fff;
-    background-color: #F3ACB4 !important;
+    background-color: #0E21A0 !important;
     border-color: #fff !important;
 }
 
 .sidebar {
     width: 6.5rem;
     min-height: 100vh;
-    background-color: #F3ACB4;
-    color: #000;
+    background-color: #0E21A0;
+    color: #f8f9fc;
 }
 
 .name {
     margin-left: 70px;
-    color: #000;
+    color: #4E31AA;
     margin-top: -50px;
     font-size: 17px;
 }
@@ -45,11 +45,11 @@
 }
 
 .role {
-    color: #B59DD1;
+    color: #27005D;
 }
 
 .content {
-    color: #000;
+    color: #858796;
     font-size: 15px;
 }
 
@@ -71,13 +71,13 @@ a {
 }
 
 a {
-    color: #000;
+    color: #f8f9fc;
     text-decoration: none;
     background-color: transparent;
 }
 
 a:hover {
-    color:azure;
+    color: plum;
 }
 
 .nav-fixed .topnav, #accordionSidebar{
@@ -107,7 +107,7 @@ a:hover {
 
 .btn-rspn{
     text-decoration: none; 
-    background-color: #8A7EA4; 
+    background-color: #9D44C0; 
     color: #fff; 
     border-color:#fff ;
     border-radius: 10px; 
@@ -115,14 +115,14 @@ a:hover {
 }
 
 .btn-edit{
-    background-color: #9CCEC3;
+    background-color: #4D2DB7;
     color: #f8f9fc;
     border: none;
     border-radius: 17%;
   }
   
 .btn-delete{
-    background-color: #FBC495;
+    background-color: #EA1179;
     color: #f8f9fc;
     border: none;
     border-radius: 17%;
@@ -150,7 +150,7 @@ a:hover {
   }
   
   .thread-form button {
-    background-color: #87AEB7;
+    background-color: #4D2DB7;
     color: #fff;
     padding: 10px 20px;
     border-radius: 10%;
@@ -232,7 +232,7 @@ a:hover {
   
   
   .reply a {
-      color: #F3ACB4;
+      color: #4E31AA;
       text-decoration: none;
   }
 
@@ -255,3 +255,29 @@ a:hover {
     margin-top: -10px;
     font-size: 15px;
   }
+
+  .thread-styling {
+    margin-top: 55px;
+  }
+
+  .form-control, .custom-file-label{
+    background-color: #d2d2dc;
+  }
+
+  .input-group {
+    margin-left: 55%;
+  }
+
+  .contact {
+    color: #4E31AA;
+  }
+
+  .name-contact {
+    padding: 20px;
+  }
+
+  .image-contact {
+    padding: 10px;
+    width: 60%;
+  }
+

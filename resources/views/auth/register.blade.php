@@ -22,16 +22,16 @@
 
     <style>
         .bg-register{
-            background-image: url("../img/bg-login.jpg");
-        }
-
-        .card-register{
-            margin-top: 100px;
+            background-image: url("../img/bg-web.jpg");
+            background-size: 100%
         }
         .btn-register{
-            background-color: #F9BBAE;
-            border-radius: 20%;
-            color: black;
+            background-color: #313866;
+            color: white;
+            border-radius: 20%
+        }
+        .card-register{
+            margin-top: 100px;
         }
         .bg-reg{
             background-image: url("../img/welcome_reg.jpg"); 

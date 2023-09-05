@@ -92,21 +92,18 @@
                     <div class="card-body text-center card-profile">
                         <h3>Account</h3>
                         <hr>
-                        <div class="text-center pt-4 pb-2">
-                            <img src="{{ Auth::user()->foto ? asset('img/profile/' . Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}"
-                                alt="">
-                            <div class="py-3">
-                                <h5>{{ Auth::user()->name }}</h5>
+                        <div class="text-center">
+                            <img class="image-contact" src="{{ Auth::user()->foto ? asset('img/profile/' . Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}" alt="">
+                            <div class="name-contact">
+                                <h5>{{ Auth::user()->fullname }}</h5>
                             </div>
-                            <div class="contact">
-                                <h5>contact</h5>
-                            </div>
+                            <h5>contact</h5>
                             <label>Email: </label>
-                            <a href="mailto:{{ Auth::user()->email }}">
+                            <a class="contact" href="mailto:{{ Auth::user()->email }}">
                                 {{ Auth::user()->email }}
                             </a><br />
                             <label>Phone: </label>
-                            <a href="tel:+6288983879406">
+                            <a class="contact" href="tel:+6288983879406">
                                 088983879406
                             </a> <br />
                         </div>
