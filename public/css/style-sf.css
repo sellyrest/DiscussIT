@@ -281,3 +281,7 @@ a:hover {
     width: 60%;
   }
 
+  .timeline.timeline-xs .timeline-item .timeline-item-marker .timeline-item-marker-text {
+    width: 4rem;
+    font-size: 0.7rem;
+}

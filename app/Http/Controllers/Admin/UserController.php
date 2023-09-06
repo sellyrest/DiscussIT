@@ -3,28 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Topik;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $totalUser = User::where('role', 'user')->get()->count();
-        $totalTopic = Topik::where('status', 1)->get()->count();
-        $recentTopic = Topik::where('status', 1)->orderByDESC('updated_at')->get();
-        $topuser = User::withCount('topik')
-            ->having('topik_count', '!=', 0)
-            ->orderByDESC('topik_count')
-            ->take(5)
-            ->get();
-        return view('pages.admin.dashboard', compact('totalUser', 'totalTopic', 'recentTopic', 'topuser'));
+        if ($request->ajax()) {
+            $user = User::where('role', 'user')->orderBy('fullname');
+            if ($request->search) {
+                $user = $user->where('username', 'like', '%'.$request->search.'%')
+                        ->orWhere('fullname', 'like', '%'.$request->search.'%')
+                        ->orWhere('email', 'like', '%'.$request->search.'%');
+            }
+            $user = $user->paginate(10);
+            return view('pages.admin.includes.user-list', compact('user'));
+        }
+        return view('pages.admin.user');
     }
 
     /**

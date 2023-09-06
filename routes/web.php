@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\SavedController;
@@ -28,12 +30,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('/saved', SavedController::class);
     Route::resource('/response', ResponseController::class);
     Route::prefix('/admin')->name('admin.')->middleware(AdminMiddleware::class)->group(function() {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+        Route::resource('/user', UserController::class);
     });
     Route::get('/test', function(){
         return view('pages.includes.response-list');
     });
     Route::get('/test2', function(){
-        return view('pages.admin.dashboard-admin');
+        return view('pages.admin.dashboard');
+    });
+    Route::get('/test3', function(){
+        return view('pages.admin.user');
     });
     
     Route::get('/yt', function () {

@@ -10,7 +10,8 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
+    @if (Auth::user()->role=='user')
+        
     <li class="nav-item active">
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -81,9 +82,13 @@
             </i>
             <span>Saved</span></a>
     </li>
+    @endif
+    <!-- Nav Item - Dashboard -->
 
-    <li class="nav-item @if (Request::segment(1) == 'saved') active @endif">
-        <a class="nav-link" href="{{url('saved')}}">
+    @if (Auth::user()->role=='admin')
+        
+    <li class="nav-item @if (Request::segment(2) == 'dashboard') active @endif">
+        <a class="nav-link" href="{{url('admin/dashboard')}}">
             <i class="fas fa-fw">
                 <img style="height :20px; " src="img/save-icon.png" alt="">
             </i>
@@ -100,12 +105,13 @@
         </a>
         <div id="collapsePagesadmin" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="user">user</a>
-                <a class="collapse-item" href="Topic">Topic</a>
-                <a class="collapse-item" href="Response">Response</a>
+                <a class="collapse-item" href="{{url('admin/user')}}">user</a>
+                <a class="collapse-item" href="{{url('admin/topic')}}">Topic</a>
+                <a class="collapse-item" href="{{url('admin/response')}}">Response</a>
             </div>
         </div>
     </li>
+    @endif
 
   
 
