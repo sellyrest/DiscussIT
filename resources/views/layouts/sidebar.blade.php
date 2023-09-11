@@ -101,7 +101,7 @@
             <i class="fas fa-fw">
                 <img style="height :20px; " src="img/settings-icon.png" alt="">
             </i>
-            <span>User</span>
+            <span>Menu</span>
         </a>
         <div id="collapsePagesadmin" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">

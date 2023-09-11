@@ -1,26 +1,28 @@
-<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+<table class="table table-bordered" id="content-user" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>No</th>
             <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Action</th>
+
         </tr>
     </thead>
     <tbody>
         @foreach ($user as $item)
 
         <tr>
-            <td>1</td>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
+            <td>{{ ($user->currentpage()-1) * $user->perpage() + $loop->index + 1 }}</td>
+            <td>{{$item->fullname}}</td>
+            <td>{{$item->username}}</td>
+            <td>{{$item->email}}</td>
+            <td>{{$item->nomor_telpon}}</td>
+            <td>
+                <button class="btn btn-outline-indigo" type="button">Edit</button>
+                <button class="btn btn-outline-orange" type="button">Delete</button>
+            </td>
         </tr>
         @endforeach
     </tbody>

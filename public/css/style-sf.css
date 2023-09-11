@@ -95,7 +95,7 @@ a:hover {
     font-size: 0.9rem;
 }
 
-#accordionSidebar, #content .container-fluid {
+#accordionSidebar, #content .p-alert {
     padding-top: 3.625rem;
 }
 
@@ -285,3 +285,40 @@ a:hover {
     width: 4rem;
     font-size: 0.7rem;
 }
+
+
+.spinner {
+   position: relative;
+   width: 16px;
+   height: 16px;
+}
+
+.spinner::before,
+.spinner::after {
+   content: '';
+   width: 100%;
+   height: 100%;
+   display: block;
+   animation: spinner-b4c8mmsm 0.5s backwards, spinner-49opz7sm 1.25s 0.5s infinite ease;
+   border: 4px solid #474bff;
+   border-radius: 50%;
+   box-shadow: 0 -24px 0 -4px #474bff;
+   position: absolute;
+}
+
+.spinner::after {
+   animation-delay: 0s, 1.25s;
+}
+
+@keyframes spinner-b4c8mmsm {
+   from {
+      box-shadow: 0 0 0 -4px #474bff;
+   }
+}
+
+@keyframes spinner-49opz7sm {
+   to {
+      transform: rotate(360deg);
+   }
+}
+

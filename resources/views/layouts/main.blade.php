@@ -22,6 +22,8 @@
     {{-- <link rel="stylesheet" href="{{ URL::asset('css/sb-admin-2.css') }}" /> --}}
     <link rel="stylesheet" href="{{ URL::asset('css/sb-admin-2.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/style-sf.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('css/admin-style.css')}}">
+    
 
  @yield('styles')
 </head>

@@ -18025,6 +18025,7 @@ body {
 .form-control-solid {
   background-color: #eef2f8;
   border-color: #eef2f8;
+  height: 100%;
 }
 .form-control-solid:focus {
   background-color: #eef2f8;

@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
         return view('pages.admin.user');
     });
     
+    
     Route::get('/yt', function () {
         return view('pages.yourthread');
     });
