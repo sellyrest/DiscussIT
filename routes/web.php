@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\ResponseController as AdminResponseController;
+use App\Http\Controllers\Admin\TopicController as AdminTopicController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResponseController;
@@ -32,6 +34,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin')->name('admin.')->middleware(AdminMiddleware::class)->group(function() {
         Route::get('/dashboard', [AdminDashboardController::class, 'index']);
         Route::resource('/user', UserController::class);
+        Route::resource('topic', AdminTopicController::class);
+        Route::resource('response', AdminResponseController::class);
+
     });
     Route::get('/test', function(){
         return view('pages.includes.response-list');

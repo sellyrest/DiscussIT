@@ -1,4 +1,4 @@
-<table class="table table-bordered" id="content-user" width="100%" cellspacing="0">
+<table class="table table-hover" id="content-user" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>No</th>
@@ -20,10 +20,12 @@
             <td>{{$item->email}}</td>
             <td>{{$item->nomor_telpon}}</td>
             <td>
-                <button class="btn btn-outline-indigo" type="button">Edit</button>
-                <button class="btn btn-outline-orange" type="button">Delete</button>
+                <a class="btn btn-outline-indigo btn-sm m-1" 
+                    href="{{ route('admin.user.edit', $item->id) }}">Edit</a>
+                <button class="btn btn-outline-orange btn-sm m-1" onclick="deleteUser(event, {{$item->id}}, '{{$item->fullname}}')">Delete</button>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
+{{ $user->appends($_GET)->links() }}

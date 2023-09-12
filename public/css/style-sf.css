@@ -95,11 +95,11 @@ a:hover {
     font-size: 0.9rem;
 }
 
-#accordionSidebar, #content .p-alert {
+/* #accordionSidebar, #content .p-alert {
     padding-top: 3.625rem;
-}
+} */
 
-#content .container-fluid {
+#content .container-fluid, #content .p-alert{
     padding-left: 15rem;
     padding-top: 4rem;
 }
@@ -321,4 +321,10 @@ a:hover {
       transform: rotate(360deg);
    }
 }
+
+.pw-empty{
+  font-size: 85%;
+  color: #EA1179;
+}
+
 

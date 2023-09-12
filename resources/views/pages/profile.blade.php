@@ -1,92 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Profile</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f1f1f1;
-      margin: 0;
-    }
-    .profile-container {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-    .profile-picture {
-      max-width: 200px;
-      border-radius: 50%;
-      display: block;
-      margin: 0 auto;
-    }
-    .username {
-      text-align: center;
-      font-size: 24px;
-      margin-top: 10px;
-    }
-    .bio {
-      text-align: center;
-      font-size: 16px;
-      color: #777;
-      margin-bottom: 20px;
-    }
-    .recent-posts {
-      padding: 10px;
-      border-top: 1px solid #ddd;
-    }
-    .post {
-      margin-bottom: 10px;
-    }
-    .post-title {
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .post-content {
-      font-size: 14px;
-    }
-    <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .container {
-      display: flex;
-      align-items: center;
-    }
-    .p {
-      padding: 10px;
-      margin: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-  </style>
-  <div class="profile-container text-center">
-    <img class="profile-picture" src="{{Auth::user()->foto ? asset('img/profile/'.Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}" alt="Profile Picture">
-    <div class="username">{{Auth::user()->name}}</div>
-    <div class="bio">FrontEnd enthusiast</div>
-    <div class="recent-posts">
-      <div class="post">
-        <div class="post-title">Portofolio</div>
-        <div class="post-content">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet libero euismod, varius nunc eu, scelerisque est.
+@extends('layouts.main')
+@section('content')
+    
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-4">
+        <!-- Profile picture card-->
+        <div class="card mb-4 mb-xl-0">
+            <div class="card-header">Profile Picture</div>
+            <div class="card-body text-center">
+                <!-- Profile picture image-->
+                <img class="img-account-profile rounded-circle mb-2" src="{{ $user->foto ? asset('img/profile/' . $user->foto) : asset('img/profile/default_fp.jpg')}}" alt="">
+                <!-- Profile picture help block-->
+                <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                <!-- Profile picture upload button-->
+                <button class="btn btn-primary" type="button">Upload new image</button>
+            </div>
         </div>
-      </div>
-      <div class="post">
-        <div class="post-title py-4">Experience</div>
-        <div class="post-content">
-          Praesent euismod feugiat leo non faucibus. Pellentesque in feugiat quam.
+    </div>
+    <div class="col-xl-8">
+        <!-- Account details card-->
+        <div class="card mb-4">
+            <div class="card-header">Account Details</div>
+            <div class="card-body">
+                <form>
+                    <!-- Form Group (username)-->
+                    <div class="mb-3">
+                        <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
+                        <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
+                    </div>
+                    <!-- Form Row-->
+                    <div class="row gx-3 mb-3">
+                        <!-- Form Group (first name)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputFirstName">First name</label>
+                            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
+                        </div>
+                        <!-- Form Group (last name)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputLastName">Last name</label>
+                            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
+                        </div>
+                    </div>
+                    <!-- Form Row        -->
+                    <div class="row gx-3 mb-3">
+                        <!-- Form Group (organization name)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputOrgName">Organization name</label>
+                            <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
+                        </div>
+                        <!-- Form Group (location)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputLocation">Location</label>
+                            <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA">
+                        </div>
+                    </div>
+                    <!-- Form Group (email address)-->
+                    <div class="mb-3">
+                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
+                    </div>
+                    <!-- Form Row-->
+                    <div class="row gx-3 mb-3">
+                        <!-- Form Group (phone number)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputPhone">Phone number</label>
+                            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                        </div>
+                        <!-- Form Group (birthday)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputBirthday">Birthday</label>
+                            <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+                        </div>
+                    </div>
+                    <!-- Save changes button-->
+                    <button class="btn btn-primary" type="button">Save changes</button>
+                </form>
+            </div>
         </div>
-      </div>
-      <!-- Add more recent posts here -->
     </div>
   </div>
-</body>
-</html>
+</div>
+@endsection
