@@ -18,7 +18,14 @@
 
                                 <div class="float-right reply">
 
-                                    <a data-toggle="collapse" href="#collapseExample{{$item->id}}" role="button" aria-expanded="false" aria-controls="collapseExample"><span><i class="fa fa-reply"></i> reply</span></a>
+                                    <a href="javascript:void(0)" onclick="openReply(event, {{ $item->id }}, '{{ $item->user->username }}')">
+                                        <span><i class="fa fa-reply"></i> reply</span>
+                                    </a>
+                                    @if (Auth::id()!= $item->user->id)
+                                    <a class="ml-4" href="javascript:void(0)" onclick="openReport(event, {{ $item->id }}, '{{ $item->user->username }}')">
+                                        <span><i class="fa-solid fa-flag"></i></span>
+                                    </a>
+                                    @endif
 
                                 </div>
 
@@ -27,13 +34,13 @@
                             
                         </div>
 
-                        {{ $item->content }}
-                        @foreach ( $item->children as $children)
+                        {!! $item->content !!}
+                        @foreach ( $item->children()->get() as $children)
                         <div class="media my-4">
                             <img class="rounded-circle" alt=""
                                     src="{{ $children->user->foto ? asset('img/profile/' . $children->user->foto) : asset('img/profile/default_fp.jpg') }}"
                                     alt="" />
-                                    <div class="media-body">
+                                    <div class="media-body ms-2">
                                         <div class="row">
                                             <div class="col-8 d-flex">
                                                 <h5>{{ $children->user->fullname }} &nbsp;</h5>
@@ -42,17 +49,24 @@
                                             </div>
                                             <div class="col-4">
                                                 <div class="float-right reply">
-                                                    <a data-toggle="collapse" href="#collapseExample{{$item->id}}" role="button" aria-expanded="false" aria-controls="collapseExample"><span><i class="fa fa-reply"></i> reply</span></a>
+                                                    <a href="javascript:void(0)" onclick="openReply(event, {{ $item->id }}, '{{ $children->user->username }}')">
+                                                        <span><i class="fa fa-reply"></i> reply</span></a>
+                                                        @if (Auth::id()!= $children->user->id)
+                                                            
+                                                        <a class="ml-4" href="javascript:void(0)" onclick="openReport(event, {{ $children->id }}, '{{ $children->user->username }}')">
+                                                            <span><i class="fa-solid fa-flag"></i></span>
+                                                        </a>
+                                                        @endif
+                                                        
                                                 </div>
                                             </div>
                                         </div>
-                                        {{ $children->content }}
+                                        {!! $children->content !!}
                                     </div>
                         </div>
                         @endforeach
                         <div class="collapse" id="collapseExample{{$item->id}}">
                             <div class="card">
-                                <div class="modal-content">
                                     <form id="addReply{{$item->id}}" method="post">
                                         @csrf
                                         {{-- <div class="modal-header">
@@ -61,7 +75,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div> --}}
-                                        <div class="modal-body">
+                                        <div class="card-body">
                                             {{-- <h5 class="modal-title" >Respons</h5> --}}
                                             <div class="form-group">
                                                 {{-- <label for="commentTitle">Judul</label>
@@ -75,15 +89,14 @@
                                                 </div>
                                             <div class="form-group">
                                                 <h5 class="modal-title" id="commentModalLabel">Respons</h5>
-                                                <textarea class="form-control" id="commentContent" name="commentContent" rows="5" required></textarea>
+                                                <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
                                                 <span id="error-content" class="badge badge-danger"></span>
                                             </div>
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Tutup</button>
-                                            <button type="button" onclick="addReply(event, {{ $item->id }})" class="btn btn-primary">Kirim</button>
+                                            <button type="button" onclick="addReply(event, {{ $item->id }})" id="btnReply{{$item->id}}" class="btn btn-primary">Kirim</button>
                                         </div>
                                     </form>
-                                </div>
                             </div>
                           </div>
                     </div>

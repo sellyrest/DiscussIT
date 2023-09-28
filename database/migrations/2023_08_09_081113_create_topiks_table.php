@@ -19,6 +19,10 @@ class CreateTopiksTable extends Migration
                     ->constrained('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
+            $table->foreignId('kategori_id')
+                    ->constrained('topik_kategoris')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
             $table->string('title');
             $table->text('content');
             $table->string('image')->nullable();

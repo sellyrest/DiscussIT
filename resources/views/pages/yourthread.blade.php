@@ -17,6 +17,18 @@
                             <input type="file" name="image" id="" class="custom-file-input" accept="image/*">
                             <label class="custom-file-label" for="customFile">Choose file</label>
                           </div>
+                          <label for="Category">
+                            Category
+                          </label>
+                          <select class="form-control form-control-solid mb-3" name="kategori_id" id="kategori_id">
+                            <option value="0">Select Category</option>
+                            @foreach ($category as $item)
+                                
+                            <option value="{{ $item->id }}">
+                                {{ $item->name }}
+                            </option>
+                            @endforeach
+                          </select>
                         <button class="btn-thread" type="submit">Create Thread</button>
                     </form>
                 </section>

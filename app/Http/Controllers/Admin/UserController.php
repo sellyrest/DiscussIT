@@ -142,24 +142,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $user = User::find($id);
-        $topic = Topik::where('user_id', $user->id)->count();
-        if ($topic > 0) {
-            return response()->json([
-                'status'    => false,
-            ]);
-        } else {
-            $path = 'img/profile/'.$user->foto;
-            if (is_file($path)) {
-                unlink($path);
-            }
-            $user->delete();
-            return response()->json([
-                'status'    => true,
-            ]);
-        }
+        $user->status = $request->status;
+        $user->save();
+
+        return response()->json([
+            'status'    => true,
+        ]); 
         
     }
 }

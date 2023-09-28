@@ -21,4 +21,14 @@ class Topik extends Model
     public function responses() {
         return $this->belongsTo(Response::class, 'topic_id', 'id');
     }
+    
+    public function kategori()
+    {
+        return $this->belongsTo(TopikKategori::class, 'kategori_id', 'id');
+    }
+
+    public function report()
+    {
+        return $this->hasMany(Report::class, 'table_id', 'id')->where('table_name', 'topiks');
+    }
 }

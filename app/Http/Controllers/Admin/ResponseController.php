@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Response;
+use App\Models\Topik;
 use Illuminate\Http\Request;
 
 class ResponseController extends Controller
@@ -12,8 +14,23 @@ class ResponseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $response = Response::with(['user','responses'])->orderByDESC('created_at');
+            $search = $request->search;
+            if ($search) {
+                $response = $response->where('content'.$search.'%')
+                ->orWhereHas('user', function($q) use($search) {
+                    $q->where('username'.$search.'%');
+                    $q->orWhere('fullname'.$search.'%');
+                    $q->orWhere('email'.$search.'%');
+                });
+            }
+            $response = $response->paginate(10);
+            // dd($response);
+            return view('pages.admin.includes.response-list', compact('response'));
+        }
         return view('pages.admin.response');
     }
 
@@ -24,7 +41,7 @@ class ResponseController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.response-create');
     }
 
     /**
@@ -35,7 +52,7 @@ class ResponseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -57,7 +74,6 @@ class ResponseController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -80,6 +96,10 @@ class ResponseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $response = Response::find($id);
+            $response->delete();
+            return response()->json([
+                'status'    => true,
+            ]);
     }
 }

@@ -16,7 +16,7 @@ class Response extends Model
     }
     public function responses()
     {
-        return $this->hasMany(Response::class, 'topic_id', 'id');
+        return $this->belongsTo(Topik::class, 'topic_id', 'id');
     }
     
     public function parent()
@@ -27,5 +27,10 @@ class Response extends Model
     public function children()
     {
         return $this->hasMany(Response::class, 'parent_id');
+    }
+
+    public function report()
+    {
+        return $this->hasMany(Report::class, 'table_id', 'id')->where('table_name', 'responses');
     }
 }

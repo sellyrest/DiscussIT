@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -24,6 +25,18 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        if (Auth::user()->status == 0) {
+            $this->guard()->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect('login')->with('error', 'Your Account Has Been Blocked!!!');
+        }
+        if (Auth::user()->role == 'admin') {
+            return redirect('/admin/dashboard');
+        }
         return redirect('/');
     }
 

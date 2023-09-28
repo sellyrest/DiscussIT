@@ -15,7 +15,7 @@
                     <div class=" mb-3 col-6 offset-3">
                         <form method="GET"
                         class="d-none d-sm-inline-block form-inline navbar-search float-end w-100">
-                        <div class="input-group">
+                        <div class="input-group-lg float-end">
                             <input name="keyword" type="text" class="form-control bg-light border-0 small search-user"
                                 placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             </div>
@@ -65,7 +65,7 @@
 
         }
 
-        function deleteUser(e, id) {
+        function blockUser(e, id, status) {
             e.preventDefault()
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -77,10 +77,10 @@
 
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: "You won't be see this account!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
+                confirmButtonText: 'Yes, block it!',
                 cancelButtonText: 'Cancel!',
                 reverseButtons: true
             }).then((result) => {
@@ -88,6 +88,9 @@
                     $.ajax({
                         type: "DELETE",
                         url: "{{ url('admin/user') }}/" + id,
+                        data: {
+                            status:status,
+                        },
                         cache: false,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -95,8 +98,73 @@
                         success: function(response) {
                             if (response.status == true) {
                                 swalWithBootstrapButtons.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
+                                    'Blocked!',
+                                    'This Account has been blocked.',
+                                    'success'
+                                )
+                            } else {
+                                swalWithBootstrapButtons.fire(
+                                    'Error!',
+                                    'This user owns a topic so it cant be deleted',
+                                    'error'
+                                )
+                            }
+                            getUser(url)
+                        }
+                    });
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Your imaginary file is safe',
+                        'error'
+                    )
+                }
+            })
+            // var result = confirm('Apakah Anda Yakin Menghapus Topic  '+title+' ? ')
+            // if (result) {
+            //     
+            // } else {
+            //     alert('Data Aman!')
+            // }
+        }
+        function unblockUser(e, id, status) {
+            e.preventDefault()
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You will be see this account!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, unblock it!',
+                cancelButtonText: 'Cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('admin/user') }}/" + id,
+                        data: {
+                            status:status,
+                        },
+                        cache: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.status == true) {
+                                swalWithBootstrapButtons.fire(
+                                    'Unblocked!',
+                                    'This Account has been unblocked.',
                                     'success'
                                 )
                             } else {

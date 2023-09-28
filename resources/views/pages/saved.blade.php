@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                 Respons</label>
-                                <textarea class="form-control" id="commentContent" name="commentContent" rows="5" required></textarea>
+                                <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">

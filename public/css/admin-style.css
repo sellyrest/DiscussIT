@@ -2147,7 +2147,7 @@ progress {
 .form-control, .datatable-input {
   display: block;
   width: 100%;
-  padding: 0.875rem 1.125rem;
+  /* padding: 0.875rem 1.125rem; */
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1;
@@ -2656,7 +2656,7 @@ textarea.form-control-lg {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  width: 7rem;
+  width: 19rem;
 }
 .input-group > .form-control, .input-group > .datatable-input,
 .input-group > .form-select,

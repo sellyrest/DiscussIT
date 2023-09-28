@@ -16,6 +16,7 @@ class ResponseController extends Controller
     public function index(Request $request)
     {
         $response = Response::where('topic_id', $request->topic_id)
+            ->where('status', 1)
             ->where('parent_id', 0)
             ->orderBy('id', 'DESC')
             ->with('children')
@@ -44,11 +45,11 @@ class ResponseController extends Controller
     {
         $data = $request->all();
         $validator = Validator::make($data, [
-            'commentContent' => ['required', 'min:3']
+            'content' => ['required', 'min:3']
         ],
         [
-            'commentContent.required' => 'Content Harus Diisi',
-            'commentContent.min'      => 'Content Harus :min Karakter!'
+            'content.required' => 'Content Harus Diisi',
+            'content.min'      => 'Content Harus :min Karakter!'
         ]);
         if ($validator->fails()){
             return response()->json([
@@ -59,7 +60,7 @@ class ResponseController extends Controller
         $response = Response::create([
             'user_id'   => $request->user_id,
             'topic_id'   => $request->topic_id,
-            'content'   => $request->commentContent,
+            'content'   => $request->content,
             'parent_id' => $request->parent_id
         ]);
         return response()->json([

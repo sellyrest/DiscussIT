@@ -45,6 +45,22 @@
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
+            @if (Session::get('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Session::get('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+    @if (Session::get('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Session::get('error') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 
             <div class="col-xl-10 col-lg-12 col-md-9">
 

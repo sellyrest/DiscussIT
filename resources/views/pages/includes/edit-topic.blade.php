@@ -21,6 +21,7 @@
                     <label for="thread-content">Thread Content:</label>
                     <textarea id="thread-content" name="content" rows="8" class="form-control" required>{{ $topic->content }}</textarea>
                 </div>
+                @if ($topic->status != 0)
                 <div class="form-group">
                     <label for="status">Status</label>
                         <div class="form-check">
@@ -33,12 +34,25 @@
                             <label class="form-check-label" for="flexRadioDefault2">Draft</label>
                         </div>  
                 </div>
+                @endif
                 <div class="form-group">
                     <label for="thread-image"></label>
                         <input type="file" name="image" id="" accept="image/*">
                         
                         <img src="{{asset('img/'.$topic->image)}}" class="mt-4 ms-2" alt="" width="200px">
                 </div>
+                <select class="form-control form-control-solid mb-3" name="kategori_id" id="kategori_id">
+                    <option value="0">Select Category</option>
+                    @foreach ($category as $item)
+                        
+                    <option value="{{ $item->id }}"
+                        @if ($item->id == $topic->kategori_id)
+                        selected    
+                        @endif>
+                        {{ $item->name }}
+                    </option>
+                    @endforeach
+                  </select>
              </form>
         </div>
         <div class="modal-footer">

@@ -1,10 +1,10 @@
 @foreach ($topic as $item)
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold role">UI/UX Designer</h6>
+            <h6 class="m-0 font-weight-bold role">{{ $item->kategori->name }}</h6>
         </div>
         <div class="card-body">
-            <img style="height :60px; "
+            <img style="height :60px; " class="rounded-circle"
                 src="{{ $item->user->foto ? asset('img/profile/' . $item->user->foto) : asset('img/profile/default_fp.jpg') }}"
                 alt="">
             <h5 class="name">{{ $item->user->fullname }}</h5>
@@ -14,7 +14,7 @@
             <div class="text-center">
                 <img src="{{ asset('img/'.$item->image) }}" alt="" class="img-fluid">
             </div>
-            <a href="{{ route('topic.show', Crypt::encrypt($item->id))}}" style="color: #C794B0; margin-left: 85%; margin-top: -50px">see all response</a>
+            <a href="{{ route('topic.show', Crypt::encrypt($item->id))}}" class="btn-allrespon float-right mb-3">see all response</a>
         </div>
         <div class="card-footer">
             <button onclick="modalEdit({{$item->id}});" class="btn-edit">Edit</button>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             Respons</label>
-                            <textarea class="form-control" id="commentContent" name="commentContent" rows="5" required></textarea>
+                            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

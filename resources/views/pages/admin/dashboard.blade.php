@@ -7,17 +7,10 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-auto mt-4">
                         <h1 class="page-header-title">
-                            <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-activity">
-                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                                </svg></div>
                             Dashboard
                         </h1>
-                        <div class="page-header-subtitle">Example dashboard overview and content summary</div>
                     </div>
-                    <div class="col-12 col-xl-auto mt-4">
+                    {{-- <div class="col-12 col-xl-auto mt-4">
                         <div class="input-group input-group-joined border-0" style="width: 16.5rem">
                             <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -32,7 +25,7 @@
                             <input class="form-control ps-0 pointer" id="litepickerRangePlugin"
                                 placeholder="Select date range...">
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -68,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between small">
-                                    <a class="text-white stretched-link" href="#!">View Report</a>
+                                    <a class="text-white stretched-link" href="#!">S forum</a>
                                     <div class="text-white"><svg class="svg-inline--fa fa-angle-right" aria-hidden="true"
                                             focusable="false" data-prefix="fas" data-icon="angle-right" role="img"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg="">
@@ -80,7 +73,7 @@
                             </div>
                         </div>
                         <div class="col-12 mb-4">
-                            <div class="card bg-warning text-white h-100">
+                            <div class="card bg-purple text-white h-100">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="me-3">
@@ -97,7 +90,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between small">
-                                    <a class="text-white stretched-link" href="#!">View Report</a>
+                                    <a class="text-white stretched-link" href="#!">S Forum</a>
                                     <div class="text-white"><svg class="svg-inline--fa fa-angle-right" aria-hidden="true"
                                             focusable="false" data-prefix="fas" data-icon="angle-right" role="img"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg="">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topik;
+use App\Models\TopikKategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +33,8 @@ class TopicController extends Controller
      */
     public function create()
     {
-        return view('pages.yourthread');
+        $category = TopikKategori::where('status', 1)->get();
+        return view('pages.yourthread', compact('category'));
     }
 
     /**
@@ -68,7 +70,8 @@ class TopicController extends Controller
             'content' => $request->content,
             'slug' => Str::slug($request->title),
             'user_id' => Auth::user()->id,
-            'status' => 1
+            'status' => 1,
+            'kategori_id' => $request->kategori_id
 
         ]);
 
@@ -110,7 +113,8 @@ class TopicController extends Controller
     public function edit($id)
     {
         $topic = Topik::find($id);
-        return view('pages.includes.edit-topic', compact('topic'));
+        $category = TopikKategori::where('status', 1)->get();
+        return view('pages.includes.edit-topic', compact('topic', 'category'));
     }
 
     /**
@@ -157,6 +161,8 @@ class TopicController extends Controller
             'slug' => Str::slug($request->title),
             'user_id' => Auth::user()->id,
             'status' => $request->status,
+            'kategori_id' => $request->kategori_id
+
 
         ]);
 

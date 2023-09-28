@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Saved::class, 'user_id', 'id');
     }
+
+    public function report()
+    {
+        return $this->hasMany(Report::class, 'table_id', 'id')->where('table_name', 'users');
+    }
 }

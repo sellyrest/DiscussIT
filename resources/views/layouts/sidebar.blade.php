@@ -24,62 +24,29 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw">
-                <img style="height :20px; " src="img/settings-icon.png" alt="">
-            </i>
-            <span>Setting</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Login Screens:</h6>
-                <a class="collapse-item" href="{{url('login')}}">Login</a>
-                <a class="collapse-item" href="{{url('register')}}">Register</a>
-                <a class="collapse-item" href="{{url('reset-password')}}">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
-            </div>
-        </div>
-    </li>
-
     <!-- Nav Item - Charts -->
     <li class="nav-item @if (Request::segment(1) == '') active @endif">
         <a class="nav-link " href="{{url('/')}}">
-            <i class="fas fa-fw">
-                <i class="fas fa-fw">
-                    <img style="height :20px; " src="img/home-icon.png" alt="">
-                </i>
-            </i>
+            <i class="fa-solid fa-house-user"></i>
             <span>Home</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item @if (Request::segment(2) == 'create') active @endif">
+    <li class="nav-item @if (Request::segment(1) == 'topic' && Request::segment(2) == 'create') active @endif">
         <a class="nav-link" href="{{url('topic/create')}}">
-            <i class="fas fa-fw">
-                <img style="height :20px; " src="img/thread-icon.png" alt="">
-            </i>
+            <i class="fa-solid fa-plus"></i>
             <span>Your Thread</span></a>
     </li>
 
-    <li class="nav-item @if (Request::segment(1) == 'topic') active @endif">
+    <li class="nav-item @if (Request::segment(1) == 'topic' && Request::segment(2) == '') active @endif">
         <a class="nav-link" href="{{url('topic')}}">
-            <i class="fas fa-fw">
-                <img style="height :20px; " src="img/save-icon.png" alt="">
-            </i>
+            <i class="fa-solid fa-file"></i>
             <span>My Topic</span></a>
     </li>
 
     <li class="nav-item @if (Request::segment(1) == 'saved') active @endif">
         <a class="nav-link" href="{{url('saved')}}">
-            <i class="fas fa-fw">
-                <img style="height :20px; " src="img/save-icon.png" alt="">
-            </i>
+            <i class="fa-solid fa-floppy-disk"></i>
             <span>Saved</span></a>
     </li>
     @endif
@@ -89,25 +56,24 @@
         
     <li class="nav-item @if (Request::segment(2) == 'dashboard') active @endif">
         <a class="nav-link" href="{{url('admin/dashboard')}}">
-            <i class="fas fa-fw">
-                <img style="height :20px; " src="img/save-icon.png" alt="">
-            </i>
+            <i class="fa-solid fa-gauge"></i>
             <span>Dashboard</span></a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesadmin"
             aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw">
-                <img style="height :20px; " src="img/settings-icon.png" alt="">
-            </i>
+            <i class="fa-solid fa-bars"></i>
             <span>Menu</span>
         </a>
         <div id="collapsePagesadmin" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{url('admin/user')}}">User</a>
                 <a class="collapse-item" href="{{url('admin/topic')}}">Topic</a>
+                <a class="collapse-item" href="{{url('admin/topic-category')}}">Topic Category</a>
                 <a class="collapse-item" href="{{url('admin/response')}}">Response</a>
+                <a class="collapse-item" href="{{url('admin/report')}}">Report</a>
+                
             </div>
         </div>
     </li>

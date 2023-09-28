@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Topik;
+use App\Models\TopikKategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -37,7 +39,8 @@ class TopicController extends Controller
      */
     public function create()
     {
-        //
+        $category = TopikKategori::where('status', 1)->get();
+        return view('pages.admin.topic-create', compact('category'));
     }
 
     /**
@@ -48,8 +51,52 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $validator = Validator::make(
+            $data,
+            [
+                'title' => ['required', 'string', 'min:3', 'max:255'],
+                'content' => ['required', 'min:3'],
+                'image' => ['image', 'max:2048']
+            ],
+            [
+                'title.required'    => 'Judul Harus Di isi !',
+                'title.min' => 'Judul Harus Di isi Minimal :min Karakter',
+                'title.max' => 'Judul Harus Di isi Minimal :max Karakter',
+                'content.required'  => 'Konten Harus Di isi!',
+                'content.min' => 'Konten Harus Di isi Minimal :min Karakter',
+                'image.max' => 'Gambar Harus Kurang Dari :max kb'
+            ]
+        );
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $topic = Topik::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'slug' => Str::slug($request->title),
+            'user_id' => Auth::user()->id,
+            'status' => 1,
+            'kategori_id' => $request->kategori_id
+
+        ]);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $newName =  Str::slug($request->title) . '_' . md5(uniqid(rand(), true)) . $ext;
+            $file->move(public_path('img/'), $newName);
+            $topic->image = $newName;
+            $topic->save();
+        }
+
+        if ($topic) {
+            return redirect('/')->with('success', 'Data Berhasil Disimpan!');
+        } else {
+            return redirect()->back()->with('error', 'Data Gagal Disimpan!');
+        }
     }
+    
 
     /**
      * Display the specified resource.
@@ -131,6 +178,26 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $topic = Topik::find($id);
+        $path = 'img/'.$topic->image;
+            if (is_file($path)) {
+                unlink($path);
+            }
+        $topic->delete();
+            return response()->json([
+                'status'    => true,
+            ]); 
+        }
+    public function status(Request $request, $id)
+    {
+        $topic = Topik::find($id);
+        $topic->status = $request->status;
+        $topic->save();
+        return response()->json([
+            'status' => 1,
+            'message' => 'Youre topic is updated',
+        ]);
     }
+    
 }

@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\Report as AdminReport;
 use App\Http\Controllers\Admin\ResponseController as AdminResponseController;
 use App\Http\Controllers\Admin\TopicController as AdminTopicController;
+use App\Http\Controllers\Admin\TopikKategoriController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Report;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\SavedController;
 use App\Http\Controllers\TopicController;
@@ -29,13 +32,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('topic', TopicController::class);
     Route::get('/search', [DashboardController::class, 'searchTopic'])->name('search.topic');
+    Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+    Route::get('/profile/{id}', [DashboardController::class, 'detailProfile']);
+    Route::post('/profile/{id}', [DashboardController::class, 'updateProfile'])->name('profile');
     Route::resource('/saved', SavedController::class);
     Route::resource('/response', ResponseController::class);
+    Route::get('/report', [Report::class, 'report']);
+    Route::resource('/report', Report::class);
     Route::prefix('/admin')->name('admin.')->middleware(AdminMiddleware::class)->group(function() {
         Route::get('/dashboard', [AdminDashboardController::class, 'index']);
         Route::resource('/user', UserController::class);
+        Route::get('topic/status/{id}', [AdminTopicController::class, 'status'])->name('topic.status');
         Route::resource('topic', AdminTopicController::class);
         Route::resource('response', AdminResponseController::class);
+        Route::resource('topic-category', TopikKategoriController::class);
+        Route::resource('report', AdminReport::class);
 
     });
     Route::get('/test', function(){
@@ -53,9 +64,6 @@ Route::middleware('auth')->group(function () {
         return view('pages.yourthread');
     });
     
-    Route::get('/profile', function () {
-        return view('pages.profile');
-    });
 
 
 
