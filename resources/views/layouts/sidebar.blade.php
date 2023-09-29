@@ -3,8 +3,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <h3 style="color: #87AEB7">S</h3>
-        <div class="sidebar-brand-text mx-3">Forume</div>
+        <div class="sidebar-brand-text text-side mx-3">S Forume</div>
     </a>
 
     <!-- Divider -->

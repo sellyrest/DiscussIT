@@ -55,8 +55,7 @@
                 <td>{{ $item->created_at }}</td>
                 <td>
                     <button class="btn btn-outline-danger btn-sm"
-                        onclick="deleteResponse(event, {{ $item->id }}, '{{ $item->title }}')"><i
-                            class="fa-solid fa-trash-can"></i>&nbsp; Delete</button>
+                        onclick="deleteResponse(event, {{ $item->id }}, '{{ $item->title }}')">Delete</button>
                 </td>
                 
             </tr>

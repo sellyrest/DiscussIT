@@ -6,7 +6,7 @@
             <div class="col-12 text-center" id="load-icon" style="display: none">
                 <img src="{{ asset('img/load.gif') }}" alt="" width="50px">
             </div>
-            <div class="col-xl-8 col-lg-5" id="content-topic">
+            <div class="col-12" id="content-topic">
                 <div class="card">
                     
                     <div class="container bootstrap snippets bootdey">
@@ -17,7 +17,7 @@
                             </h3>
                         </div>
 
-                        <div class="jumbotron" style="min-height:400px;height:auto;">
+                        <div class="jumbotron" style="min-height:100px;height:auto;">
                             <ul class="list-group">
                                 @foreach ($user as $item)
                                     

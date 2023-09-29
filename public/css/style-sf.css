@@ -214,6 +214,14 @@ a:hover {
     background-color: #fff;
     border-color: #dddfeb #dddfeb #fff;
   }
+
+  .topbar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 225px;
+    z-index: 1030;
+  }
   
   
   
@@ -402,4 +410,12 @@ header {
 
 .user-details h3 {
   margin: 0;
+}
+
+.text-side{
+  color: #d2d2dc;
+}
+
+.navsearch{
+  right: 224px;
 }

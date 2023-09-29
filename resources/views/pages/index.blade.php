@@ -51,7 +51,7 @@
                                     @endif
                                 </button>
                                 @if (Auth::id()!= $item->user->id)
-                                <button class="p-2 justify-content-center my-3" onclick="openReport(event, {{ $item->id }}, '{{ $item->title }}', '{{ app(App\Models\Topik::class)->getTable() }}')">
+                                <button class="btn btn-purple p-2 justify-content-center my-3" onclick="openReport(event, {{ $item->id }}, '{{ $item->title }}', '{{ app(App\Models\Topik::class)->getTable() }}')">
                                     <span><i class="fa-solid fa-flag"></i></span>
                                 </button>
                                 @endif
@@ -167,18 +167,13 @@
                                     <div class="modal-body">
                                         <div class="form-check">
                                             <input class="form-check-input" id="reason1" type="radio" name="reason"
-                                                value="Spam">
-                                            <label class="form-check-label" for="reason1">Spam</label>
+                                                value="Immoral Content">
+                                            <label class="form-check-label" for="reason1">Immoral Content</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" id="reason2" type="radio" name="reason"
-                                                value="Hate commment">
-                                            <label class="form-check-label" for="reason2">Hate commment</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" id="reason3" type="radio" name="reason"
-                                                value="Misinformation">
-                                            <label class="form-check-label" for="reason3">Misinformation</label>
+                                                value="Abusive">
+                                            <label class="form-check-label" for="reason2">Abusive</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" id="reason3" type="radio" name="reason"

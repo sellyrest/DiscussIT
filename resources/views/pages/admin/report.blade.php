@@ -216,10 +216,10 @@
 
         swalWithBootstrapButtons.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        text: "You will be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, block it!',
+        confirmButtonText: 'Yes, unblock it!',
         cancelButtonText: 'Cancel!',
         reverseButtons: true
         }).then((result) => {
@@ -238,14 +238,14 @@
                 success: function (response) {
                     if (response.status == true) {
                         swalWithBootstrapButtons.fire(
-                        'Blocked!',
-                        'Report has been blocked.',
+                        'unblocked!',
+                        'Report has been unblocked.',
                         'success'
                         )   
                     } else {
                         swalWithBootstrapButtons.fire(
                         'Error!',
-                        'This report cant be blocked',
+                        'This report cant be unblocked',
                         'error'
                         )
                     }

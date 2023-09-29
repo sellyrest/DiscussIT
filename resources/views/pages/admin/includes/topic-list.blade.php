@@ -48,9 +48,6 @@
                         <a href="javascript:void(0)" data-status="Decline" data-title="{{ $item->title }}" data-url="{{ route('admin.topic.status', $item->id)}}?status=2" class="btn-status btn btn-outline-orange btn-sm m-2"><i class="fa-solid fa-xmark"></i>&nbsp; Decline</a>
         
                         @endif
-        
-                        <a class="btn btn-outline-info btn-sm m-2" href="{{ route('admin.topic.show', $item->id)}}"><i class="fa-regular fa-eye"></i>&nbsp; View</a>
-                        <a class="btn btn-outline-success btn-sm m-2" href="{{ route('admin.topic.edit', $item->id)}}"><i class="fa-regular fa-pen-to-square"></i>&nbsp; Edit</a>
                         <button class="btn btn-outline-danger btn-sm m-2" onclick="deleteTopic(event, {{$item->id}}, '{{$item->title}}')"><i class="fa-solid fa-trash-can"></i>&nbsp; Delete</button>
         
                         @if ($item->status != '0')

@@ -20,7 +20,7 @@ class DashboardController extends Controller
             ->where('status', 1)
             ->having('topik_count', '!=', 0)
             ->orderByDESC('topik_count')
-            ->take(7)
+            ->take(3)
             ->get();
         $topic = Topik::orderBy('id', 'DESC')
             ->where('status', 1)
