@@ -23,9 +23,15 @@
                              <!-- BEGIN profile-header-info -->
                              <div class="profile-header-info">
                                 <h4 class="m-t-10 m-b-5">{{ $user->fullname }}</h4>
-                                <p class="m-b-10">{{$user->username}} || {{$user->email}} || {{$user->nomor_telpon}}</p>
-                               
+                                <p class="m-b-10">{{$user->username}} || {{$user->email}} || {{$user->nomor_telpon}} || 1 Followers</p>
+                                <form action="{{ route('following.store', $user) }}" method="POST">
+                                 @csrf
+                                 <x-button class="btn-rspn">
+                                    Follow
+                                 </x-button>
+                              </form>
                              </div>
+
                              <!-- END profile-header-info -->
                           </div>
                           <!-- END profile-header-content -->

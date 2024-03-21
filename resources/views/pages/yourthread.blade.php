@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
     <!-- Begin Page Content -->
-    <div class="container-fluid thread-styling">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <section class="thread-form">

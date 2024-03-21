@@ -11,6 +11,8 @@ use App\Http\Controllers\Report;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\SavedController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\FollowingController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -35,9 +37,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
     Route::get('/profile/{id}', [DashboardController::class, 'detailProfile']);
     Route::post('/profile/{id}', [DashboardController::class, 'updateProfile'])->name('profile');
+    Route::get('/profile/{user}/{following}', [FollowingController::class, 'index'])->name('following.index');
+    Route::post('/profile/{user}', [FollowingController::class, 'store'])->name('following.store');
     Route::resource('/saved', SavedController::class);
     Route::resource('/response', ResponseController::class);
     Route::get('/report', [Report::class, 'report']);
+
+    // Rute untuk menampilkan halaman obrolan dengan pengguna tertentu
+    Route::get('/chat/{userId}', [ChatController::class, 'show'])->name('chat');
+
+    // Rute untuk mengirim pesan
+    Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send.message');
     Route::resource('/report', Report::class);
     Route::prefix('/admin')->name('admin.')->middleware(AdminMiddleware::class)->group(function() {
         Route::get('/dashboard', [AdminDashboardController::class, 'index']);
@@ -62,6 +72,9 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/yt', function () {
         return view('pages.yourthread');
+    });
+    Route::get('/chat', function () {
+        return view('pages.chat');
     });
     
 

@@ -1,18 +1,18 @@
 .btn-saved, .btn-rspn{
     text-decoration: none; 
-    color: #EC53B0; 
-    border-color: #EC53B0 ;
+    color: #333E46; 
+    border-color: #333E46 ;
     border-radius: 10px; 
     font-size: 15px;
 }
 
 .btn-saved:hover, .btn-saved:active, .btn-saved:focus, .btn-saved.active{
-    background-color: #EC53B0;
+    background-color: #333E46;
     color: #fff;
 }
 
 .btn-allrespon{
-    color: #EC53B0;
+    color: #4D2DB7;
     border-radius: 20px; 
     font-size: 15px;
     margin-left: 55%; 
@@ -21,26 +21,27 @@
 
 .btn-primary {
     color: #fff;
-    background-color: #0E21A0 !important;
+    background-color: #333E46 !important;
     border-color: #fff !important;
 }
 
 .sidebar {
     width: 6.5rem;
     min-height: 100vh;
-    background-color: #0E21A0;
+    background-color: #333E46;
     color: #f8f9fc;
 }
 
 .name {
     margin-left: 70px;
-    color: #4E31AA;
+    color: #3F4354;
     margin-top: -50px;
     font-size: 17px;
 }
 
 .time {
     margin-left: 70px;
+    color: #97989D;
     font-size: 13px;
 }
 
@@ -111,8 +112,8 @@ a:hover {
 
 .btn-rspn{
     text-decoration: none; 
-    background-color: #9D44C0; 
-    color: #fff; 
+    background-color: #C5D0E6; 
+    color: #3F4354; 
     border-color:#fff ;
     border-radius: 10px; 
     font-size: 15px;
@@ -419,3 +420,4 @@ header {
 .navsearch{
   right: 224px;
 }
+

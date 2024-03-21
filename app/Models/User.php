@@ -59,4 +59,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Report::class, 'table_id', 'id')->where('table_name', 'users');
     }
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

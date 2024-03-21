@@ -1,62 +1,82 @@
 @extends('layouts.main')
 @section('content')
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 text-center" id="load-icon" style="display: none">
-                <img src="{{ asset('img/load.gif') }}" alt="" width="50px">
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-8 col-lg-5 mb-4">
+            <div class="card-body d-flex align-items-center">
+                <!-- Foto profil pengguna -->
+                <a href="{{ url('profile/') }}" class="text-decoration-none">
+                    <img class="img-profile rounded-circle" src="{{Auth::user()->foto ? asset('img/profile/'.Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}" style="width: 100px; height: auto;">
+                </a>
+                <input type="text" class="form-control me-3 py-8" placeholder="Create Your Thread Here.." style="flex: 1;">
+                <!-- Area teks untuk menambah thread -->
+                <div class="flex-grow-1">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addThreadModal">Add New Thread</button>
+                </div>
             </div>
-            <div class="col-xl-8 col-lg-5" id="content-topic">
-                <div class="infinity-scroll">
-                    @foreach ($topic as $item)
-                        <div class="card shadow mb-4 content-card">
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold role">{{ $item->kategori->name }}</h6>
-                                
-                            </div>
-                            <div class="card-body">
-                                @if (Auth::id()!= $item->user->id)
-                                    <a class="float-end mt-3" href="javascript:void(0)" onclick="openReport(event, {{ $item->user->id }}, '{{ $item->user->username }}', '{{ app(App\Models\User::class)->getTable() }}')">
-                                        <span><i class="fa-solid fa-flag"></i></span>
-                                    </a>
-                                @endif
-                                <a href="{{ url('profile/'.$item->user->username) }}" class="text-decoration-none">
-                                    <img style="height :60px;" class="rounded-circle"
-                                        src="{{ $item->user->foto ? asset('img/profile/' . $item->user->foto) : asset('img/profile/default_fp.jpg') }}"
-                                        alt="">
-                                    <h5 class="name">{{ $item->user->fullname }}</h5>
-                                    <p class="time">{{ date('d F Y', strtotime($item->updated_at)) }}</p>
-                                </a>
-                                
-                                <hr>
-                                <h4 class="title">{{ $item->title }}</h4>
-                                <p class="content">{{ $item->content }}</p>
-                                <div class="text-center">
-                                    <img src="{{ asset('img/' . $item->image) }}" alt="" class="img-fluid">
-                                </div>
-                                &nbsp;
-                                <hr>
-                                <button
-                                    class="p-2 justify-content-center my-3 btn-rspn" data-topic="{{$item->id}}">
-                                    Add Response
-                                </button>
-                                
-                                <button
-                                    class="p-2 justify-content-center my-3 btn-saved @if (user_saved(Auth::user()->id, $item->id)) active @endif"
-                                    data-user="{{ Auth::user()->id }}" data-topic="{{ $item->id }}">
-                                    @if (!user_saved(Auth::user()->id, $item->id))
-                                        Save
-                                    @else
-                                        Saved
-                                    @endif
-                                </button>
-                                @if (Auth::id()!= $item->user->id)
-                                <button class="btn btn-purple p-2 justify-content-center my-3" onclick="openReport(event, {{ $item->id }}, '{{ $item->title }}', '{{ app(App\Models\Topik::class)->getTable() }}')">
-                                    <span><i class="fa-solid fa-flag"></i></span>
-                                </button>
-                                @endif
-                                <a href="{{ route('topic.show', Crypt::encrypt($item->id)) }}" class="btn-allrespon float-right mb-3">see all response</a>
-                            </div>
+            
+        </div>
+        <div class="col-12 text-center" id="load-icon" style="display: none">
+            <img src="{{ asset('img/load.gif') }}" alt="" width="50px">
+        </div>
+        <div class="col-xl-8 col-lg-5" id="content-topic">
+            <div class="infinity-scroll">
+                @foreach ($topic as $item)
+                <div class="card shadow mb-4 content-card">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold role">{{ $item->kategori->name }}</h6>
+                    </div>
+                    <div class="card-body">
+                        @if (Auth::id()!= $item->user->id)
+                        <a class="float-end mt-3" href="javascript:void(0)"
+                            onclick="openReport(event, {{ $item->user->id }}, '{{ $item->user->username }}', '{{ app(App\Models\User::class)->getTable() }}')">
+                            <span><i class="fa-solid fa-flag"></i></span>
+                        </a>
+                        @endif
+                        <a href="{{ url('profile/'.$item->user->username) }}" class="text-decoration-none">
+                            <img style="height :60px;" class="rounded-circle"
+                                src="{{ $item->user->foto ? asset('img/profile/' . $item->user->foto) : asset('img/profile/default_fp.jpg') }}"
+                                alt="">
+                            <h5 class="name">{{ $item->user->fullname }}</h5>
+                            <p class="time">{{ date('d F Y', strtotime($item->updated_at)) }}</p>
+                        </a>
+
+                        <hr>
+                        <div class="start">
+                            <h4 class="title">{{ $item->title }}</h4>
+                        </div>
+                        <div class="start">
+                            <p class="content">{{ $item->content }}</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="{{ asset('img/' . $item->image) }}" alt="" class="img-fluid">
+                        </div>
+                        &nbsp;
+                        <hr>
+                        <button class="p-2 justify-content-center my-3 btn-rspn" data-topic="{{$item->id}}">
+                            Add Response
+                        </button>
+
+                        <button
+                            class="p-2 justify-content-center my-3 btn-saved @if (user_saved(Auth::user()->id, $item->id)) active @endif"
+                            data-user="{{ Auth::user()->id }}" data-topic="{{ $item->id }}">
+                            @if (!user_saved(Auth::user()->id, $item->id))
+                            Save
+                            @else
+                            Saved
+                            @endif
+                        </button>
+                        @if (Auth::id()!= $item->user->id)
+                        <button class="btn btn-purple p-2 justify-content-center my-3"
+                            onclick="openReport(event, {{ $item->id }}, '{{ $item->title }}', '{{ app(App\Models\Topik::class)->getTable() }}')">
+                            <span><i class="fa-solid fa-flag"></i></span>
+                        </button>
+                        @endif
+                        <a href="{{ route('topic.show', Crypt::encrypt($item->id)) }}"
+                            class="btn-allrespon float-right mb-3">see all response</a>
+                    </div>
 
                             <!-- Modal -->
                         </div>
@@ -189,8 +209,8 @@
                                 </form>
                             </div>
                         </div>
-
                     </div>
+                    
 @endsection
 @section('scripts')
     <script>

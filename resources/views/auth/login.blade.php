@@ -10,29 +10,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SForume - Login</title>
+    <title>DiscussIT - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <style>
         .bg-login{
-            background-image: url("../img/bg-web.jpg");
-            background-size: 100%
+            background-color: white;
         }
         .btn-login{
-            background-color: #313866;
+            background-color: #3B4A54;
             color: white;
             border-radius: 20%
-        }
-        .card-login{
-            margin-top: 100px;
         }
     </style>
 
@@ -62,64 +58,66 @@
     </div>
     @endif
 
-            <div class="col-xl-10 col-lg-12 col-md-9">
+    <div class="container-fluid">
+        <div class="row">
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
+            <!-- Bagian kiri fullscreen -->
+            <div class="col-xl-6 col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
+                <div class="o-hidden w-100">
+                    <div class="card-body p-5">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                <div class="text-center">
+                                    <div class="start mb-4">
+                                        <img src="./img/logo-login.png" class="img-fluid" alt="Logo" style="width: 100px; height: auto;">
                                     </div>
-                                    <form class="user" method="POST" action="{{ route('login') }}">
+                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                </div>
+                                <form class="user" method="POST" action="{{ route('login') }}">
                                     @csrf
-                                        <div class="form-group">
-                                              <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
-                                        </div>
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                        <div class="form-group">
-                                                <input id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
-                                        </div>
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-login btn-user btn-block">
-                                            Login
-                                        </button>
-                                    </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
+                                    <div class="form-group">
+                                        <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                    <div class="form-group">
+                                        <input id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-login btn-user btn-block">
+                                        Login
+                                    </button>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="{{ route('register') }}">Create an Account!</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
+            <!-- Bagian kanan fullsc -->
+            <div class="col-xl-6 col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
+                <img src="./img/login-img.png" class="img-fluid" alt="Gambar">
+            </div>
         </div>
-
     </div>
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
