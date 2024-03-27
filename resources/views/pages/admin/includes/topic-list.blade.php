@@ -35,10 +35,10 @@
                     <a class="btn btn-outline-indigo btn-sm m-1"
                         href="{{ route('admin.topic.edit', $item->id) }}">Edit</a>
                         @if ($item->status == '0')
-                        <a href="javascript:void(0)" data-status="Unblock" data-title="{{ $item->title }}" data-url="{{ route('admin.topic.status', $item->id)}}?status=1" class="btn-status btn btn-outline-orange btn-sm m-2"><i class="fa-solid fa-xmark"></i>&nbsp; Unblock</a>
+                        <a href="javascript:void(0)" data-status="Unblock" data-title="{{ $item->title }}" data-url="{{ route('admin.topic.status', $item->id)}}?status=1" class="btn-status btn btn-outline-orange btn-sm m-2"><i class="fa-solid fa-xmark"></i>&nbsp;</a>
         
                         @elseif ($item->status == '1')
-                        <a href="javascript:void(0)" data-status="Cancel" data-title="{{ $item->title }}" data-url="{{ route('admin.topic.status', $item->id)}}?status=3" class="btn-status btn btn-outline-orange btn-sm m-2"><i class="fa-solid fa-xmark"></i>&nbsp; Cancel</a>
+                        <a href="javascript:void(0)" data-status="Cancel" data-title="{{ $item->title }}" data-url="{{ route('admin.topic.status', $item->id)}}?status=3" class="btn-status btn btn-outline-orange btn-sm m-2"><i class="fa-solid fa-xmark"></i>&nbsp;</a>
         
                         @elseif ($item->status == '2')
                         <a href="javascript:void(0)" data-status="Publish" data-title="{{ $item->title }}" data-url="{{ route('admin.topic.status', $item->id)}}?status=1" class="btn-status btn btn-outline-primary btn-sm m-2"><i class="fa-solid fa-upload"></i>&nbsp; Publish</a>
@@ -48,10 +48,9 @@
                         <a href="javascript:void(0)" data-status="Decline" data-title="{{ $item->title }}" data-url="{{ route('admin.topic.status', $item->id)}}?status=2" class="btn-status btn btn-outline-orange btn-sm m-2"><i class="fa-solid fa-xmark"></i>&nbsp; Decline</a>
         
                         @endif
-                        <button class="btn btn-outline-danger btn-sm m-2" onclick="deleteTopic(event, {{$item->id}}, '{{$item->title}}')"><i class="fa-solid fa-trash-can"></i>&nbsp; Delete</button>
         
                         @if ($item->status != '0')
-                        <a href="javascript:void(0)" data-status="Block" data-title="{{ $item->title }}" data-url="{{ route('admin.topic.status', $item->id)}}?status=0" class="btn-status btn btn-outline-dark btn-sm"><i class="fa-solid fa-ban"></i>&nbsp; Block</a>   
+                        <a href="javascript:void(0)" data-status="Block" data-title="{{ $item->title }}" data-url="{{ route('admin.topic.status', $item->id)}}?status=0" class="btn-status btn btn-outline-dark btn-sm"><i class="fa-solid fa-ban"></i>&nbsp;</a>   
                         @endif
                 </td>
             </tr>

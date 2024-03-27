@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Saved;
+use App\Models\Following;
 use App\Models\Topik;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,34 +14,34 @@ use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
-    public function index(){
-        $topuser = User::withCount(['topik' => function($q){
-            $q->where('status', 1);
-        }])
+    public function index()
+    {
+        $topuser = User::withCount([
+            'topik' => function ($q) {
+                $q->where('status', 1);
+            },
+        ])
             ->where('status', 1)
             ->having('topik_count', '!=', 0)
             ->orderByDESC('topik_count')
             ->take(3)
             ->get();
-        $topic = Topik::orderBy('id', 'DESC')
-            ->where('status', 1)
-            ->paginate(5);
+        $topic = Topik::orderBy('id', 'DESC')->where('status', 1)->paginate(5);
         $saved = new Saved();
         return view('pages.index', compact('topic', 'saved', 'topuser'));
     }
 
-
     public function searchTopic(Request $request)
     {
         $keyword = $request->keyword;
-        $topic = Topik::where('title', 'like', '%'.$keyword.'%')
-            ->orWhereHas('user', function($q) use($keyword) {
-                $q->where('fullname', 'like', '%'.$keyword.'%');
+        $topic = Topik::where('title', 'like', '%' . $keyword . '%')
+            ->orWhereHas('user', function ($q) use ($keyword) {
+                $q->where('fullname', 'like', '%' . $keyword . '%');
             })
             ->orderBy('id', 'DESC')
             ->paginate(5);
-        $user = User::where('username', 'like', '%'.$keyword.'%')
-            ->orWhere('fullname', 'like', '%'.$keyword.'%' )
+        $user = User::where('username', 'like', '%' . $keyword . '%')
+            ->orWhere('fullname', 'like', '%' . $keyword . '%')
             ->where('status', 1)
             ->get();
 
@@ -56,16 +57,14 @@ class DashboardController extends Controller
         $data = $request->all();
         $user = User::find($id);
         $validator = Validator::make($data, [
-            'fullname'           => ['required', 'min:5'],
-            'username'           => ['required', 'min:2', 'unique:users,username,'.$user->id],
-            'email'           => ['required', 'email', 'unique:users,email,'.$user->id],
-            'password'           => ['nullable','min:6', 'string'],
-            'nomor_telpon'           => ['required', 'min:9', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'max:14'],
-            'foto'          => ['max:5120']
-
+            'fullname' => ['required', 'min:5'],
+            'username' => ['required', 'min:2', 'unique:users,username,' . $user->id],
+            'email' => ['required', 'email', 'unique:users,email,' . $user->id],
+            'password' => ['nullable', 'min:6', 'string'],
+            'nomor_telpon' => ['required', 'min:9', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'max:14'],
+            'foto' => ['max:5120'],
         ]);
 
-        
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
@@ -80,10 +79,10 @@ class DashboardController extends Controller
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $ext = $file->getClientOriginalExtension();
-            $newName =  Str::slug($request->username) . '_' . md5(uniqid(rand(), true)) . $ext;
+            $newName = Str::slug($request->username) . '_' . md5(uniqid(rand(), true)) . $ext;
             $file->move(public_path('img/profile/'), $newName);
             $data['foto'] = $newName;
-        }else{
+        } else {
             $data['foto'] = $user->foto;
         }
         $user->update($data);
@@ -95,7 +94,21 @@ class DashboardController extends Controller
     }
     public function detailProfile($id)
     {
+        $following = new Following();
         $user = User::where('username', $id)->first();
-        return view('pages.profile-view', compact('user'));
+        $followers = Following::where('user_id', '=', $user->id)->count();
+        $profile_id = $user->id;
+        $logged_user_id = Auth::user()->id;
+        return view('pages.profile-view', compact('user', 'profile_id', 'logged_user_id', 'followers'));
+    }
+
+    public function follows($id)
+    {
+        $followers = User::withCount('followers')
+        ->orderByDesc('followers_count')
+        ->get();
+        $following = new Following();
+        $user = User::where('username', $id)->first();
+        return view('pages.profile-view', compact('user', 'followers', 'following'));
     }
 }

@@ -37,8 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
     Route::get('/profile/{id}', [DashboardController::class, 'detailProfile']);
     Route::post('/profile/{id}', [DashboardController::class, 'updateProfile'])->name('profile');
-    Route::get('/profile/{user}/{following}', [FollowingController::class, 'index'])->name('following.index');
-    Route::post('/profile/{user}', [FollowingController::class, 'store'])->name('following.store');
+    Route::post('/follows', [FollowingController::class, 'store'])->name('followers.store');
+    Route::post('/profile/{user}', [FollowingController::class, 'store']);
     Route::resource('/saved', SavedController::class);
     Route::resource('/response', ResponseController::class);
     Route::get('/report', [Report::class, 'report']);

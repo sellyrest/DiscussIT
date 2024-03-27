@@ -120,6 +120,10 @@ class CreateBaseTable extends Migration
             $table->id();
             $table->timestamps();
         });
+
+
+        
+
     }
 
     /**
@@ -129,15 +133,6 @@ class CreateBaseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('failed_jobs');
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_resets');
-        Schema::dropIfExists('personal_access_tokens');
-        Schema::dropIfExists('topiks');
-        Schema::dropIfExists('saveds');
-        Schema::dropIfExists('responses');
-        Schema::dropIfExists('topik_kategoris');
-        Schema::dropIfExists('reports');
-        Schema::dropIfExists('messages');
+        DB::statement('DROP TABLE IF EXISTS  `failed_jobs`, `users`, `password_resets`, `personal_access_tokens`, `topik_kategoris`, `topiks`, `saveds`, `responses`, `reports`, `messages`');
     }
 }

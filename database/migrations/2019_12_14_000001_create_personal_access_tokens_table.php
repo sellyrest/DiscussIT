@@ -24,6 +24,6 @@ class CreatePersonalAccessTokensTable extends Migration
      */
     public function down()
     {
-        DB::statement('DROP TABLE IF EXISTS `responses`, `saveds`, `topiks`, `topik_kategoris`, `users`, `failed_jobs`, `password_resets`, `personal_access_tokens`');
+        DB::statement('DROP TABLE IF EXISTS  `failed_jobs`, `users`, `password_resets`, `personal_access_tokens`, `topik_kategoris`, `topiks`, `saveds`, `responses`, `reports`, `messages`');
     }
 }

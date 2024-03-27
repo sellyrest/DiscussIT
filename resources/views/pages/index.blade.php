@@ -4,20 +4,6 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xl-8 col-lg-5 mb-4">
-            <div class="card-body d-flex align-items-center">
-                <!-- Foto profil pengguna -->
-                <a href="{{ url('profile/') }}" class="text-decoration-none">
-                    <img class="img-profile rounded-circle" src="{{Auth::user()->foto ? asset('img/profile/'.Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}" style="width: 100px; height: auto;">
-                </a>
-                <input type="text" class="form-control me-3 py-8" placeholder="Create Your Thread Here.." style="flex: 1;">
-                <!-- Area teks untuk menambah thread -->
-                <div class="flex-grow-1">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#addThreadModal">Add New Thread</button>
-                </div>
-            </div>
-            
-        </div>
         <div class="col-12 text-center" id="load-icon" style="display: none">
             <img src="{{ asset('img/load.gif') }}" alt="" width="50px">
         </div>
@@ -44,15 +30,16 @@
                         </a>
 
                         <hr>
-                        <div class="start">
+                        <div class="text-center-img">
+                            <img src="{{ asset('img/' . $item->image) }}" alt="" class="img-fluid">
+                        </div>
+                        <div class="start mt-4">
                             <h4 class="title">{{ $item->title }}</h4>
                         </div>
                         <div class="start">
                             <p class="content">{{ $item->content }}</p>
                         </div>
-                        <div class="text-center">
-                            <img src="{{ asset('img/' . $item->image) }}" alt="" class="img-fluid">
-                        </div>
+
                         &nbsp;
                         <hr>
                         <button class="p-2 justify-content-center my-3 btn-rspn" data-topic="{{$item->id}}">
@@ -60,22 +47,23 @@
                         </button>
 
                         <button
-                            class="p-2 justify-content-center my-3 btn-saved @if (user_saved(Auth::user()->id, $item->id)) active @endif"
+                            class="p-1 justify-content-center btn-saved @if (user_saved(Auth::user()->id, $item->id)) active @endif"
                             data-user="{{ Auth::user()->id }}" data-topic="{{ $item->id }}">
                             @if (!user_saved(Auth::user()->id, $item->id))
-                            Save
+                            <img src="img/bookmark2.svg" alt="File Icon" style="width: 30px; height: 30px;">
                             @else
-                            Saved
+                            <img src="img/bookmark.svg" alt="File Icon" style="width: 30px; height: 30px;">
                             @endif
                         </button>
                         @if (Auth::id()!= $item->user->id)
-                        <button class="btn btn-purple p-2 justify-content-center my-3"
+                        <button class="p-2 btn-report justify-content-center my-3"
                             onclick="openReport(event, {{ $item->id }}, '{{ $item->title }}', '{{ app(App\Models\Topik::class)->getTable() }}')">
                             <span><i class="fa-solid fa-flag"></i></span>
                         </button>
                         @endif
                         <a href="{{ route('topic.show', Crypt::encrypt($item->id)) }}"
-                            class="btn-allrespon float-right mb-3">see all response</a>
+                            class="btn-allrespon float-right mb-1"><img src="img/comment2.svg" alt="Icon" style="width: 50px; height: 50px;" class="btn-comment">
+                        </a>
                     </div>
 
                             <!-- Modal -->
@@ -123,24 +111,26 @@
                 </div>
             </div>
             <div class="col-xl-4 col-lg-7">
-                <div class="card shadow mb-4">
-                    <div class="card-body text-center card-profile">
-                        <h3>Account</h3>
+                <div class="card shadow mb-4 profile-card">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Account</h3>
                         <hr>
-                        <div class="text-center">
-                            <img class="image-contact rounded-circle" src="{{ Auth::user()->foto ? asset('img/profile/' . Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}" alt="">
-                            <div class="name-contact">
-                                <h5>{{ Auth::user()->fullname }}</h5>
+                        <div class="profile-info">
+                            <img class="profile-image rounded-circle" src="{{ Auth::user()->foto ? asset('img/profile/' . Auth::user()->foto) : asset('img/profile/default_fp.jpg') }}" alt="">
+                            <div class="profile-details">
+                                <h5 class="profile-name">{{ Auth::user()->fullname }}</h5>
+                                <div class="contact-info">
+                                    <h5 class="contact-label">Contact</h5>
+                                    <label class="contact-label">Email:</label>
+                                    <a class="contact-link" href="mailto:{{ Auth::user()->email }}">
+                                        {{ Auth::user()->email }}
+                                    </a><br />
+                                    <label class="contact-label">Phone:</label>
+                                    <a class="contact-link" href="tel:+6288983879406">
+                                        088983879406
+                                    </a>
+                                </div>
                             </div>
-                            <h5>contact</h5>
-                            <label>Email: </label>
-                            <a class="contact" href="mailto:{{ Auth::user()->email }}">
-                                {{ Auth::user()->email }}
-                            </a><br />
-                            <label>Phone: </label>
-                            <a class="contact" href="tel:+6288983879406">
-                                088983879406
-                            </a> <br />
                         </div>
                     </div>
                 </div>
